@@ -13,7 +13,7 @@ title                    : "DMR Name / DMRSite Title"
 title_separator          : "-"
 name                     : &name "DMR Name"
 description              : &description "dmr web personal description"
-url                      : https://chotomirza.github.io/davidtest.github.io/ # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
+url                      : https://chotomirza.github.io/davidtest.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "chotomirza/davidtest.github.io"
 
