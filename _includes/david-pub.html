@@ -21,14 +21,18 @@
     </p>
 
     <!-- Authors -->
+
     {% assign authors = "" %}
-    {% if post.Co-Author1 %}{% assign authors = authors | append: post.Co-Author1 %}{% endif %}
-    {% if post.Co-Author2 %}{% assign authors = authors | append: ", " | append: post.Co-Author2 %}{% endif %}
-    {% if post.Co-Author3 %}{% assign authors = authors | append: ", " | append: post.Co-Author3 %}{% endif %}
-    {% if post.Co-Author4 %}{% assign authors = authors | append: ", " | append: post.Co-Author4 %}{% endif %}
-    {% if post.Co-Author5 %}{% assign authors = authors | append: ", " | append: post.Co-Author5 %}{% endif %}
-    {% if post.Co-Author6 %}{% assign authors = authors | append: ", " | append: post.Co-Author6 %}{% endif %}
-    
+{% assign author_list = "" | split: "," %}
+{% for i in (1..6) %}
+  {% assign key = "Co-Author" | append: i %}
+  {% assign author = post[key] %}
+  {% if author and author != "" %}
+    {% assign author_list = author_list | push: author %}
+  {% endif %}
+{% endfor %}
+{% assign authors = author_list | join: ", " %}
+
     {% if authors != "" %}
       <p>With {{ authors }}. {{ post.Year }}.</p>
     {% else %}
