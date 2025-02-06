@@ -12,6 +12,12 @@ author_profile: true
 {% include base_path %}
 
 <!-- New style rendering if publication categories are defined -->
+
+{% for post in site.publications reversed %}
+  <p>Found a publication: {{ post.Title }}</p>
+{% endfor %}
+
+
 {% if site.publication_category %}
   {% for category in site.publication_category  %}
     {% assign title_shown = false %}
