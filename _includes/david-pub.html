@@ -40,6 +40,13 @@
       <p><strong>APA Citation:</strong> {{ post.apa_citation }}</p>
     {% endif %}
 
+    <p> mid citation</p>
+
+    {% if post.APA_Citation %}
+    <p><strong>APA Citation:</strong> {{ post.APA_Citation }}</p>
+  {% endif %}
+  
+
     <!-- Publication Link -->
     {% if post.published_link %}
       <p><a href="{{ post.published_link }}">Publication Page</a></p>
