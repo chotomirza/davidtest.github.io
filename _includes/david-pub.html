@@ -13,7 +13,7 @@
     <p>
       <strong>
         {% if post.published_link %}
-          <a href="{{ post.published_link }}">{{ title }}</a>
+          <a href="{{ post.Published_Link }}">{{ title }}</a>
         {% else %}
           {{ title }}
         {% endif %}
@@ -36,12 +36,6 @@
     {% endif %}
 
     <!-- APA Citation -->
-    {% if post.apa_citation %}
-      <p><strong>APA Citation:</strong> {{ post.apa_citation }}</p>
-    {% endif %}
-
-    <p> mid citation</p>
-
     {% if post.APA_Citation %}
     <p><strong>APA Citation:</strong> {{ post.APA_Citation }}</p>
   {% endif %}
@@ -49,7 +43,7 @@
 
     <!-- Publication Link -->
     {% if post.published_link %}
-      <p><a href="{{ post.published_link }}">Publication Page</a></p>
+      <p><a href="{{ post.Published_Link }}">Publication Page</a></p>
     {% endif %}
 
     <!-- Disciplines (Assuming you have a `Disciplines` field in your markdown) -->
@@ -57,10 +51,9 @@
       <p><strong>Disciplines:</strong> {{ post.Disciplines | join: ", " }}</p>
     {% endif %}
 
-    <!-- PDF Download -->
-    {% if post.pdf and post.pdf != "." %}
-      <p><a href="{{ post.pdf }}">Download Paper</a></p>
-    {% endif %}
-
+    {% if post.PDF and post.PDF != "." %}
+    <p><a href="{{ post.PDF }}">Download Paper</a></p>
+  {% endif %}
+  
   </article>
 </div>
