@@ -9,56 +9,51 @@
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
 
-    <h2 class="archive__item-title" itemprop="headline">
-      {% if post.Published_Link %}
-      
-        <a href="{{ post.published_link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink">
-          <i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
-      {% else %}
-        <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
-      {% endif %}
-    </h2>
+    <!-- Title & Link -->
+    <p>
+      <strong>
+        {% if post.published_link %}
+          <a href="{{ post.published_link }}">{{ title }}</a>
+        {% else %}
+          {{ title }}
+        {% endif %}
+      </strong>
+    </p>
+
+    <!-- Authors -->
+    {% assign authors = "" %}
+    {% if post.Co-Author1 %}{% assign authors = authors | append: post.Co-Author1 %}{% endif %}
+    {% if post.Co-Author2 %}{% assign authors = authors | append: ", " | append: post.Co-Author2 %}{% endif %}
+    {% if post.Co-Author3 %}{% assign authors = authors | append: ", " | append: post.Co-Author3 %}{% endif %}
+    {% if post.Co-Author4 %}{% assign authors = authors | append: ", " | append: post.Co-Author4 %}{% endif %}
+    {% if post.Co-Author5 %}{% assign authors = authors | append: ", " | append: post.Co-Author5 %}{% endif %}
+    {% if post.Co-Author6 %}{% assign authors = authors | append: ", " | append: post.Co-Author6 %}{% endif %}
     
-    {% if post.Year %}
-      <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> 
-      <time datetime="{{ post.Year }}">{{ post.Year }}</time></p>
+    {% if authors != "" %}
+      <p>With {{ authors }}. {{ post.Year }}.</p>
+    {% else %}
+      <p>{{ post.Year }}.</p>
     {% endif %}
 
-    {% if post.Venue %}
-      <p>Published in <i>{{ post.Venue }}</i>, {{ post.Year }}</p>
+    <!-- APA Citation -->
+    {% if post.apa_citation %}
+      <p><strong>APA Citation:</strong> {{ post.apa_citation }}</p>
     {% endif %}
 
-    {% if post.Group %}
-      <p><strong>Research Group:</strong> {{ post.Group }}</p>
+    <!-- Publication Link -->
+    {% if post.published_link %}
+      <p><a href="{{ post.published_link }}">Publication Page</a></p>
     {% endif %}
 
-    {% if post.Co-Author1 or post.Co-Author2 or post.Co-Author3 or post.Co-Author4 or post.Co-Author5 or post.Co-Author6 %}
-      <p><strong>Co-Authors:</strong> 
-        {% assign authors = "" %}
-        {% if post.Co-Author1 %}{% assign authors = authors | append: post.Co-Author1 %}{% endif %}
-        {% if post.Co-Author2 %}{% assign authors = authors | append: ", " | append: post.Co-Author2 %}{% endif %}
-        {% if post.Co-Author3 %}{% assign authors = authors | append: ", " | append: post.Co-Author3 %}{% endif %}
-        {% if post.Co-Author4 %}{% assign authors = authors | append: ", " | append: post.Co-Author4 %}{% endif %}
-        {% if post.Co-Author5 %}{% assign authors = authors | append: ", " | append: post.Co-Author5 %}{% endif %}
-        {% if post.Co-Author6 %}{% assign authors = authors | append: ", " | append: post.Co-Author6 %}{% endif %}
-        {{ authors }}
-      </p>
+    <!-- Disciplines (Assuming you have a `Disciplines` field in your markdown) -->
+    {% if post.Disciplines %}
+      <p><strong>Disciplines:</strong> {{ post.Disciplines | join: ", " }}</p>
     {% endif %}
 
-    
-
-
-
-
-    {% if post.APA_Citation %}
-    <p>APA Citation: {{ post.apa_citation }}</p>
-    {% endif %}
-
-    {% if post.PDF and post.PDF != "." %}
-    <p>PDF: <a href="{{ post.pdf }}">Download Paper</a></p>
-      <!-- <p><a href="{{ post.PDF }}">Download Paper</a></p> -->
+    <!-- PDF Download -->
+    {% if post.pdf and post.pdf != "." %}
+      <p><a href="{{ post.pdf }}">Download Paper</a></p>
     {% endif %}
 
   </article>
 </div>
-
