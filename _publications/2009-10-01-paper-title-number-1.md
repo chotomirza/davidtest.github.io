@@ -13,7 +13,4 @@ APA_Citation: "Wang, X., Pennock, D. M., Rothschild, D. M., & Devanur, N. R. (20
 Published_Link: "https://doi.org/10.1145/3677052.3698687"
 Category: "Peer Reviewed Publication"
 PDF: "http://academicpages.github.io/files/paper1.pdf"
-Disciplines:
-  - "Machine Learning"
-  - "Economics"
 ---
