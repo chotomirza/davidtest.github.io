@@ -12,7 +12,7 @@
     <!-- Title & Link -->
     <p>
       <strong>
-        {% if post.published_link %}
+        {% if post.Published_Link %}
           <a href="{{ post.Published_Link }}">{{ title }}</a>
         {% else %}
           {{ title }}
@@ -42,7 +42,7 @@
   
 
     <!-- Publication Link -->
-    {% if post.published_link %}
+    {% if post.Published_Link %}
       <p><a href="{{ post.Published_Link }}">Publication Page</a></p>
     {% endif %}
 
