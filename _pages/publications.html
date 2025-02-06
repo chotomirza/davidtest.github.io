@@ -24,16 +24,8 @@ author_profile: true
         {% assign title_shown = true %}
       {% endunless %}
       {% include david-pub.html %}
-    {% endfor %}
-  {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
-    {% include david-pub.html %}
-  {% endfor %}
-{% endif %}
 
-
-
+      
 
 <div>
   <h3>Debug Info</h3>
@@ -45,3 +37,13 @@ author_profile: true
   <p>Published Link: {{ post.Published_Link }}</p>
   <p>PDF: {{ post.PDF }}</p>
 </div>
+
+    {% endfor %}
+  {% endfor %}
+{% else %}
+  {% for post in site.publications reversed %}
+    {% include david-pub.html %}
+  {% endfor %}
+{% endif %}
+
+
