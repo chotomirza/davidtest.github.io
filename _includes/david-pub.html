@@ -11,7 +11,8 @@
 
     <h2 class="archive__item-title" itemprop="headline">
       {% if post.Published_Link %}
-        <a href="{{ post.Published_Link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink">
+      
+        <a href="{{ post.published_link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink">
           <i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
       {% else %}
         <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
@@ -44,25 +45,20 @@
       </p>
     {% endif %}
 
+    
+
+
+
+
     {% if post.APA_Citation %}
-      <p>Recommended citation: {{ post.APA_Citation }}</p>
+    <p>APA Citation: {{ post.apa_citation }}</p>
     {% endif %}
 
     {% if post.PDF and post.PDF != "." %}
-      <p><a href="{{ post.PDF }}">Download Paper</a></p>
+    <p>PDF: <a href="{{ post.pdf }}">Download Paper</a></p>
+      <!-- <p><a href="{{ post.PDF }}">Download Paper</a></p> -->
     {% endif %}
 
   </article>
 </div>
 
-
-<div>
-  <h3>Debug Info</h3>
-  <p>Title: {{ post.Title }}</p>
-  <p>Year: {{ post.Year }}</p>
-  <p>Group: {{ post.Group }}</p>
-  <p>Venue: {{ post.Venue }}</p>
-  <p>APA Citation: {{ post.APA_Citation }}</p>
-  <p>Published Link: {{ post.Published_Link }}</p>
-  <p>PDF: {{ post.PDF }}</p>
-</div>
