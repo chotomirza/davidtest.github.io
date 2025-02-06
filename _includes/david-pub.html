@@ -1,70 +1,55 @@
 {% include base_path %}
 
-{% if post.header.teaser %}
-  {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
-{% else %}
-  {% assign teaser = site.teaser %}
-{% endif %}
-
 {% if post.id %}
-  {% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
+  {% assign title = post.Title | markdownify | remove: "<p>" | remove: "</p>" %}
 {% else %}
-  {% assign title = post.title %}
+  {% assign title = post.Title %}
 {% endif %}
 
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    <h5>testing to see if this shows up</h5>
-    {% if include.type == "grid" and teaser %}
-      <div class="archive__item-teaser">
-        <img src=
-          {% if teaser contains "://" %}
-            "{{ teaser }}"
-          {% else %}
-            "{{ teaser | prepend: "/images/" | prepend: base_path }}"
-          {% endif %}
-          alt="">
-      </div>
-    {% endif %}
 
     <h2 class="archive__item-title" itemprop="headline">
-      {% if post.link %}
-        <a href="{{ post.link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+      {% if post.Published_Link %}
+        <a href="{{ post.Published_Link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink">
+          <i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
       {% else %}
         <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
       {% endif %}
     </h2>
     
-    {% if post.read_time %}
-      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
+    {% if post.Year %}
+      <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> 
+      <time datetime="{{ post.Year }}">{{ post.Year }}</time></p>
     {% endif %}
 
-        {% if post.collection == 'teaching' %}
-          <p> {{ post.type }}, <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif post.collection == 'publications' %}
-          <p>Published in <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif post.date %}
-         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ post.date | default: "1900-01-01" | date_to_xmlschema }}">{{ post.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
-        {% endif %}
-
-    {% if post.excerpt and site.read_more != 'enabled' %}
-    <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
-    {% elsif post.excerpt and site.read_more == 'enabled' %}
-    <p class="archive__item-excerpt" itemprop="description"><p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p></p>
+    {% if post.Venue %}
+      <p>Published in <i>{{ post.Venue }}</i>, {{ post.Year }}</p>
     {% endif %}
-    
-    {% if post.citation and post.paperurl and post.slidesurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.slidesurl }}">Download Slides</a></p>
-    {% elsif post.citation and post.paperurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a></p>
-    {% elsif post.citation and post.slidesurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.slidesurl }}">Download Slides</a></p>
-    {% elsif post.citation %}
-      <p>Recommended citation: {{ post.citation }}</p>
-    {% elsif post.paperurl %}
-      <p><a href=" {{ post.paperurl }} ">Download Paper</a></p>
-    {% elsif post.slidesurl %}
-      <p><a href="{{ post.slidesurl }}">Download Slides</a></p>
+
+    {% if post.Group %}
+      <p><strong>Research Group:</strong> {{ post.Group }}</p>
+    {% endif %}
+
+    {% if post.Co-Author1 or post.Co-Author2 or post.Co-Author3 or post.Co-Author4 or post.Co-Author5 or post.Co-Author6 %}
+      <p><strong>Co-Authors:</strong> 
+        {% assign authors = "" %}
+        {% if post.Co-Author1 %}{% assign authors = authors | append: post.Co-Author1 %}{% endif %}
+        {% if post.Co-Author2 %}{% assign authors = authors | append: ", " | append: post.Co-Author2 %}{% endif %}
+        {% if post.Co-Author3 %}{% assign authors = authors | append: ", " | append: post.Co-Author3 %}{% endif %}
+        {% if post.Co-Author4 %}{% assign authors = authors | append: ", " | append: post.Co-Author4 %}{% endif %}
+        {% if post.Co-Author5 %}{% assign authors = authors | append: ", " | append: post.Co-Author5 %}{% endif %}
+        {% if post.Co-Author6 %}{% assign authors = authors | append: ", " | append: post.Co-Author6 %}{% endif %}
+        {{ authors }}
+      </p>
+    {% endif %}
+
+    {% if post.APA_Citation %}
+      <p>Recommended citation: {{ post.APA_Citation }}</p>
+    {% endif %}
+
+    {% if post.PDF and post.PDF != "." %}
+      <p><a href="{{ post.PDF }}">Download Paper</a></p>
     {% endif %}
 
   </article>
