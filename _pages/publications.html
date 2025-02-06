@@ -17,6 +17,13 @@ author_profile: true
   <p>Found a publication: {{ post.Title }}</p>
 {% endfor %}
 
+{% for post in site.publications reversed %}
+  <p>Before include</p>
+  {% include david-pub.html %}
+  <p>After include</p>
+{% endfor %}
+
+
 
 {% if site.publication_category %}
   {% for category in site.publication_category  %}
