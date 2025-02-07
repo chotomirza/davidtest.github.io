@@ -9,8 +9,8 @@
    Co-Author5: ""
    Co-Author6: ""
    Venue: "Science Advances"
-   APA Citation: "Muise, D., Hosseinmardi, H., Howland, B., Mobius, M., Rothschild, D., & Watts, D. J. (2022). Quantifying partisanews diets in Web and TV audiences. Science Advances, 8(28). https://doi.org/10.1126/sciadv.abn0083"
-   Published Link: ""
+   APA_Citation: "Muise, D., Hosseinmardi, H., Howland, B., Mobius, M., Rothschild, D., & Watts, D. J. (2022). Quantifying partisanews diets in Web and TV audiences. Science Advances, 8(28). https://doi.org/10.1126/sciadv.abn0083"
+   Published_Link: ""
    Category: "Non-Peer Reviewed"
    PDF: "QuantifyingPartisanNews.pdf"
 ---
