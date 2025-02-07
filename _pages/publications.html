@@ -26,33 +26,26 @@ author_profile: true
   {% assign group = site.publication_groups[group_key] %}
   {% assign group_title_shown = false %}
 
+  <!-- Print group title -->
+  <p>Group title: {{ group.title }}</p>
+  <p>Groupkey title: {{ group_key.title }}</p>
+  <p>Groupkey: {{ group_key }}</p>
+
   <!-- 🔹 Loop through Categories inside each Group -->
   {% for category_key in site.publication_category %}
     {% assign category = site.publication_category[category_key] %}
     {% assign category_title_shown = false %}
 
+    <!-- Print category title -->
+    <p>Category title: {{ category.title }}</p>
+    <p>Categorykey title: {{ category_key.title }}</p>
+    <p>Categorykey: {{ category_key }}</p>
+
     <!-- 🔹 Loop through Publications -->
     {% for post in site.publications reversed %}
-      <!-- Debugging output -->
-      <p>Comparing post.Group: {{ post.Group }} with group.title: {{ group.title }}</p>
-      <p>Comparing post.Category: {{ post.Category }} with category.title: {{ category.title }}</p>
-      {% if post.Group == group.title and post.Category == category.title %}
-        <!-- Show Group title only once -->
-        {% unless group_title_shown %}
-          <h2>{{ group.title }}</h2>
-          <hr />
-          {% assign group_title_shown = true %}
-        {% endunless %}
-
-        <!-- Show Category title only once -->
-        {% unless category_title_shown %}
-          <h3>{{ category.title }}</h3>
-          {% assign category_title_shown = true %}
-        {% endunless %}
-
-        <!-- Include the publication -->
-        {% include david-pub.html %}
-      {% endif %}
+      <!-- Print post.Group and post.Category -->
+      <p>post.Group: {{ post.Group }}</p>
+      <p>post.Category: {{ post.Category }}</p>
     {% endfor %}
   {% endfor %}
 {% endfor %}
