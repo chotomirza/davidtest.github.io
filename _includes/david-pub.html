@@ -29,9 +29,9 @@
       {% endfor %}
       {% assign authors = author_list | join: ", " %}
       {% if authors != "" %}
-        <span> – With {{ authors }}. {{ post.Year }}.</span>
+        <span> - With {{ authors }}. {{ post.Year }}.</span>
       {% else %}
-        <span> – {{ post.Year }}.</span>
+        <span> - {{ post.Year }}.</span>
       {% endif %}
     </p>
 

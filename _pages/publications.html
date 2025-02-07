@@ -6,27 +6,77 @@ author_profile: true
 ---
 
 {% if site.author.googlescholar %}
-  <div class="wordwrap">You can also find my articles on <a href="https://scholar.google.com/citations?user=aXGTpLgAAAAJ&hl=en">my Google Scholar profile</a>.</div>
+  <div class="wordwrap">
+    You can also find my articles on 
+    <a href="https://scholar.google.com/citations?user=aXGTpLgAAAAJ&hl=en">
+      my Google Scholar profile
+    </a>.
+  </div>
 {% endif %}
 
 {% include base_path %}
 
-<!-- Loop through publication categories -->
+<h3>Debugging: Checking Categories & Groups</h3>
+
+<!-- Debug: Check if categories exist -->
+<p><strong>Checking site.publication_category:</strong></p>
+<ul>
+{% for category_key in site.publication_category %}
+  <li>{{ category_key }} - {{ site.publication_category[category_key].title }}</li>
+{% else %}
+  <li>No categories found!</li>
+{% endfor %}
+</ul>
+
+<!-- Debug: Check if groups exist -->
+<p><strong>Checking site.publication_groups:</strong></p>
+<ul>
+{% for group_key in site.publication_groups %}
+  <li>{{ group_key }} - {{ site.publication_groups[group_key].title }}</li>
+{% else %}
+  <li>No groups found!</li>
+{% endfor %}
+</ul>
+
+<!-- Debug: Check if any publications exist -->
+<p><strong>Checking site.publications:</strong></p>
+<ul>
+{% for post in site.publications %}
+  <li>{{ post.Title }} (Category: {{ post.Category }}, Group: {{ post.Group }})</li>
+{% else %}
+  <li>No publications found!</li>
+{% endfor %}
+</ul>
+
+<hr />
+
+<h3>Publications</h3>
+
+<!-- Loop through categories -->
 {% for category_key in site.publication_category %}
   {% assign category = site.publication_category[category_key] %}
   {% assign title_shown = false %}
 
-  <!-- Loop through publication groups -->
+  <!-- Loop through groups -->
   {% for group_key in site.publication_groups %}
     {% assign group = site.publication_groups[group_key] %}
     {% assign group_title_shown = false %}
 
-    <!-- Loop through site publications -->
+    <!-- Debug: Output category/group currently being processed -->
+    <p>Checking for posts in Category: <strong>{{ category.title }}</strong> | Group: <strong>{{ group.title }}</strong></p>
+
+    <!-- Loop through publications -->
     {% for post in site.publications reversed %}
+      <!-- Debug: Check if post is being filtered correctly -->
+      <p>Checking post: {{ post.Title }} (Category: {{ post.Category }}, Group: {{ post.Group }})</p>
+
       {% if post.Category != category.title %}
+        <p>Skipping: {{ post.Title }} (Category mismatch)</p>
         {% continue %}
       {% endif %}
+
       {% if post.Group != group.title %}
+        <p>Skipping: {{ post.Title }} (Group mismatch)</p>
         {% continue %}
       {% endif %}
 
@@ -37,7 +87,7 @@ author_profile: true
         {% assign title_shown = true %}
       {% endunless %}
 
-      <!-- Show group title once under the category -->
+      <!-- Show group title once -->
       {% unless group_title_shown %}
         <h3>{{ group.title }}</h3>
         {% assign group_title_shown = true %}
@@ -45,12 +95,14 @@ author_profile: true
 
       <!-- Include publication template -->
       {% include david-pub.html %}
+
     {% endfor %}
   {% endfor %}
 {% endfor %}
 
-<!-- If no filtering is required, show all publications -->
+<!-- If no categories or groups are found, show all publications -->
 {% unless site.publication_category or site.publication_groups %}
+  <h2>All Publications</h2>
   {% for post in site.publications reversed %}
     {% include david-pub.html %}
   {% endfor %}
