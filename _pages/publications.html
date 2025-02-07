@@ -67,10 +67,60 @@ author_profile: true
 
     <!-- Loop through publications -->
     {% for post in site.publications reversed %}
+
+
+{% for group_key in site.publication_groups %}
+  {% assign group = site.publication_groups[group_key] %}
+
+  {% for category_key in site.publication_category %}
+    {% assign category = site.publication_category[category_key] %}
+
+    <!-- ✅ Correctly assign group & category inside the loop -->
+    {% assign config_group = group.title | strip | downcase %}
+    {% assign config_category = category.title | strip | downcase %}
+
+    <!-- Debugging: Print current group & category being processed -->
+    <p>Processing Group: '{{ config_group }}', Category: '{{ config_category }}'</p>
+
+    {% for post in site.publications reversed %}
       {% assign post_group = post.Group | strip | downcase %}
       {% assign post_category = post.Category | strip | downcase %}
-      {% assign config_group = group.title | strip | downcase %}
-      {% assign config_category = category.title | strip | downcase %}
+
+      <!-- Debugging: Print current post's values -->
+      <p>Comparing Post: '{{ post.Title }}' (Post Group: '{{ post_group }}', Post Category: '{{ post_category }}')</p>
+
+      <!-- Ensure both values are correctly assigned before comparison -->
+      {% if post_group == "" or post_category == "" %}
+        <p style="color: red;">⚠️ Warning: Post missing Group or Category → {{ post.Title }}</p>
+      {% endif %}
+
+      {% if post_group != config_group %}
+        <p style="color: orange;">Skipping: {{ post.Title }} (Group mismatch: '{{ post_group }}' ≠ '{{ config_group }}')</p>
+        {% continue %}
+      {% endif %}
+
+      {% if post_category != config_category %}
+        <p style="color: orange;">Skipping: {{ post.Title }} (Category mismatch: '{{ post_category }}' ≠ '{{ config_category }}')</p>
+        {% continue %}
+      {% endif %}
+
+      <!-- Show group and category titles once -->
+      {% unless group_title_shown %}
+        <h2>{{ group.title }}</h2>
+        <hr />
+        {% assign group_title_shown = true %}
+      {% endunless %}
+
+      {% unless category_title_shown %}
+        <h3>{{ category.title }}</h3>
+        {% assign category_title_shown = true %}
+      {% endunless %}
+
+      {% include david-pub.html %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+
 
       <!-- Check if publication matches both group and category -->
       {% if post_group != config_group %}
