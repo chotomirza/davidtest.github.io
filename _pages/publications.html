@@ -26,8 +26,8 @@ author_profile: true
   {% assign group = site.publication_groups[group_key] %}
   {% assign group_title_shown = false %}
 
-  <!-- Print group title -->
-  <p>Group: {{ group }}</p>
+  <!-- Print group object and title -->
+  <p>Group object: {{ group | jsonify }}</p>
   <p>Group title: {{ group.title }}</p>
   <p>Groupkey: {{ group_key }}</p>
 
@@ -36,8 +36,8 @@ author_profile: true
     {% assign category = site.publication_category[category_key] %}
     {% assign category_title_shown = false %}
 
-    <!-- Print category title -->
-    <p>Category: {{ category }}</p>
+    <!-- Print category object and title -->
+    <p>Category object: {{ category | jsonify }}</p>
     <p>Category title: {{ category.title }}</p>
     <p>Categorykey: {{ category_key }}</p>
 
