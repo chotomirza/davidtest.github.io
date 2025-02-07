@@ -33,6 +33,9 @@ author_profile: true
 
     <!-- 🔹 Loop through Publications -->
     {% for post in site.publications reversed %}
+      <!-- Debugging output -->
+      <p>Comparing post.Group: {{ post.Group }} with group.title: {{ group.title }}</p>
+      <p>Comparing post.Category: {{ post.Category }} with category.title: {{ category.title }}</p>
       {% if post.Group == group.title and post.Category == category.title %}
         <!-- Show Group title only once -->
         {% unless group_title_shown %}
