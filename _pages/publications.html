@@ -16,150 +16,56 @@ author_profile: true
 
 {% include base_path %}
 
-<h3>Debugging: Checking Categories & Groups</h3>
-
-<!-- Debug: Check if categories exist -->
-<p><strong>Checking site.publication_category:</strong></p>
-<ul>
-{% for category_key in site.publication_category %}
-  <li>{{ category_key }} - {{ site.publication_category[category_key].title }}</li>
-{% else %}
-  <li>No categories found!</li>
-{% endfor %}
-</ul>
-
-<!-- Debug: Check if groups exist -->
-<p><strong>Checking site.publication_groups:</strong></p>
-<ul>
-{% for group_key in site.publication_groups %}
-  <li>{{ group_key }} - {{ site.publication_groups[group_key].title }}</li>
-{% else %}
-  <li>No groups found!</li>
-{% endfor %}
-</ul>
-
-<!-- Debug: Check if any publications exist -->
-<p><strong>Checking site.publications:</strong></p>
-<ul>
-{% for post in site.publications %}
-  <li>{{ post.Title }} (Category: {{ post.Category }}, Group: {{ post.Group }})</li>
-{% else %}
-  <li>No publications found!</li>
-{% endfor %}
-</ul>
-
-<hr />
-
 <h3>Publications</h3>
 
-<!-- Loop through groups first -->
+<!-- Store unmatched publications -->
+{% assign other_publications = "" | split: "," %}
+
+<!-- 🔹 Loop through Groups first -->
 {% for group_key in site.publication_groups %}
   {% assign group = site.publication_groups[group_key] %}
   {% assign group_title_shown = false %}
 
-  <!-- Loop through categories within each group -->
+  <!-- 🔹 Loop through Categories inside each Group -->
   {% for category_key in site.publication_category %}
     {% assign category = site.publication_category[category_key] %}
     {% assign category_title_shown = false %}
 
-    <!-- Debug: Output category/group currently being processed -->
-    <p>Checking for posts in Category: <strong>{{ category.title }}</strong> | Group: <strong>{{ group.title }}</strong></p>
-
-    <!-- Loop through publications -->
-    {% for post in site.publications reversed %}
-
-
-{% for group_key in site.publication_groups %}
-  {% assign group = site.publication_groups[group_key] %}
-
-  {% for category_key in site.publication_category %}
-    {% assign category = site.publication_category[category_key] %}
-
-    <!-- ✅ Correctly assign group & category inside the loop -->
-    {% assign config_group = group.title | strip | downcase %}
-    {% assign config_category = category.title | strip | downcase %}
-
-    <!-- Debugging: Print current group & category being processed -->
-    <p>Processing Group: '{{ config_group }}', Category: '{{ config_category }}'</p>
-
+    <!-- 🔹 Loop through Publications -->
     {% for post in site.publications reversed %}
       {% assign post_group = post.Group | strip | downcase %}
       {% assign post_category = post.Category | strip | downcase %}
+      {% assign config_group = group.title | strip | downcase %}
+      {% assign config_category = category.title | strip | downcase %}
 
-      <!-- Debugging: Print current post's values -->
-      <p>Comparing Post: '{{ post.Title }}' (Post Group: '{{ post_group }}', Post Category: '{{ post_category }}')</p>
+      {% if post_group == config_group and post_category == config_category %}
+        <!-- Show Group title only once -->
+        {% unless group_title_shown %}
+          <h2>{{ group.title }}</h2>
+          <hr />
+          {% assign group_title_shown = true %}
+        {% endunless %}
 
-      <!-- Ensure both values are correctly assigned before comparison -->
-      {% if post_group == "" or post_category == "" %}
-        <p style="color: red;">⚠️ Warning: Post missing Group or Category → {{ post.Title }}</p>
+        <!-- Show Category title only once -->
+        {% unless category_title_shown %}
+          <h3>{{ category.title }}</h3>
+          {% assign category_title_shown = true %}
+        {% endunless %}
+
+        <!-- Include the publication -->
+        {% include david-pub.html %}
       {% endif %}
-
-      {% if post_group != config_group %}
-        <p style="color: orange;">Skipping: {{ post.Title }} (Group mismatch: '{{ post_group }}' ≠ '{{ config_group }}')</p>
-        {% continue %}
-      {% endif %}
-
-      {% if post_category != config_category %}
-        <p style="color: orange;">Skipping: {{ post.Title }} (Category mismatch: '{{ post_category }}' ≠ '{{ config_category }}')</p>
-        {% continue %}
-      {% endif %}
-
-      <!-- Show group and category titles once -->
-      {% unless group_title_shown %}
-        <h2>{{ group.title }}</h2>
-        <hr />
-        {% assign group_title_shown = true %}
-      {% endunless %}
-
-      {% unless category_title_shown %}
-        <h3>{{ category.title }}</h3>
-        {% assign category_title_shown = true %}
-      {% endunless %}
-
-      {% include david-pub.html %}
     {% endfor %}
   {% endfor %}
 {% endfor %}
 
-
-      <!-- Check if publication matches both group and category -->
-      {% if post_group != config_group %}
-        <p>Skipping: {{ post.Title }} (Group mismatch: '{{ post_group }}' ≠ '{{ config_group }}')</p>
-        {% continue %}
-      {% endif %}
-
-      {% if post_category != config_category %}
-        <p>Skipping: {{ post.Title }} (Category mismatch: '{{ post_category }}' ≠ '{{ config_category }}')</p>
-        {% continue %}
-      {% endif %}
-
-      <!-- Show group title once -->
-      {% unless group_title_shown %}
-        <h2>{{ group.title }}</h2>
-        <hr />
-        {% assign group_title_shown = true %}
-      {% endunless %}
-
-      <!-- Show category title once -->
-      {% unless category_title_shown %}
-        <h3>{{ category.title }}</h3>
-        {% assign category_title_shown = true %}
-      {% endunless %}
-
-      <!-- Include publication template -->
-      {% include david-pub.html %}
-    {% endfor %}
-  {% endfor %}
-{% endfor %}
-
-<!-- Collect all unclassified publications for "Other" section -->
-{% assign other_publications = "" | split: "," %}
+<!-- 🔹 Capture unmatched publications in "Other" section -->
 {% for post in site.publications reversed %}
   {% assign post_group = post.Group | strip | downcase %}
   {% assign post_category = post.Category | strip | downcase %}
   {% assign matched = false %}
 
-  <!-- Check if publication matches any defined group -->
+  <!-- Check if post matches any Group -->
   {% for group_key in site.publication_groups %}
     {% assign group = site.publication_groups[group_key] %}
     {% if post_group == group.title | strip | downcase %}
@@ -167,7 +73,7 @@ author_profile: true
     {% endif %}
   {% endfor %}
 
-  <!-- Check if publication matches any defined category -->
+  <!-- Check if post matches any Category -->
   {% for category_key in site.publication_category %}
     {% assign category = site.publication_category[category_key] %}
     {% if post_category == category.title | strip | downcase %}
@@ -175,13 +81,13 @@ author_profile: true
     {% endif %}
   {% endfor %}
 
-  <!-- If it doesn't match any category or group, add to 'Other' -->
+  <!-- If no match, store for "Other" -->
   {% unless matched %}
     {% assign other_publications = other_publications | push: post %}
   {% endunless %}
 {% endfor %}
 
-<!-- Show "Other" Section if needed -->
+<!-- 🔹 Display "Other" section if there are unmatched publications -->
 {% if other_publications.size > 0 %}
   <h2>Other</h2>
   <hr />
