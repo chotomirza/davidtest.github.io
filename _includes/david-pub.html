@@ -1,9 +1,9 @@
 {% include base_path %}
 
 {% if post.id %}
-  {% assign title = post.Title | markdownify | remove: "<p>" | remove: "</p>" %}
+  {% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
 {% else %}
-  {% assign title = post.Title %}
+  {% assign title = post.title %}
 {% endif %}
 
 <div class="{{ include.type | default: "list" }}__item">
@@ -12,43 +12,33 @@
     <!-- Title, Authors, and Link -->
     <p>
       <strong>
-        {% if post.PDF %}
-          <a href="{{ post.PDF }}">{{ title }}</a>
+        {% if post.pdf %}
+          <a href="{{ post.pdf }}">{{ title }}</a>
         {% else %}
           {{ title }}
         {% endif %}
       </strong>
-      {% assign authors = "" %}
-      {% assign author_list = "" | split: "," %}
-      {% for i in (1..6) %}
-        {% assign key = "Co-Author" | append: i %}
-        {% assign author = post[key] %}
-        {% if author and author != "" %}
-          {% assign author_list = author_list | push: author %}
-        {% endif %}
-      {% endfor %}
-      {% assign authors = author_list | join: ", " %}
+      {% assign authors = post.co-authors | join: ", " | strip_newlines | replace: " ,", "," | replace: ", ,", "," | replace: ", ,", "," %}
       {% if authors != "" %}
-        <span> - With {{ authors }}. {{ post.Year }}.</span>
+        <span> - With {{ authors }}. {{ post.year }}.</span>
       {% else %}
-        <span> - {{ post.Year }}.</span>
+        <span> - {{ post.year }}.</span>
       {% endif %}
     </p>
 
     <!-- APA Citation (No Extra Blank Line) -->
-    {% if post.APA_Citation %}
-      <p><strong>APA Citation:</strong> {{ post.APA_Citation }}</p>
+    {% if post.apa_citation %}
+      <p><strong>APA Citation:</strong> {{ post.apa_citation }}</p>
     {% endif %}
 
     <!-- Disciplines (if available) -->
-    {% if post.Group %}
-      <p><strong>Disciplines:</strong> {{ post.Group }}</p>
+    {% if post.group %}
+      <p><strong>Disciplines:</strong> {{ post.group }}</p>
     {% endif %}
 
     <!-- Link to Publication Page -->
-    {% if post.Published_Link %}
-      <p><a href="{{ post.Published_Link }}">Link to Publication Page</a></p>
+    {% if post.published_link %}
+      <p><a href="{{ post.published_link }}">Link to Publication Page</a></p>
     {% endif %}
-
   </article>
 </div>
