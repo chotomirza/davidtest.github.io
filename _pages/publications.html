@@ -11,53 +11,47 @@ author_profile: true
 
 {% include base_path %}
 
-<!-- New style rendering if publication categories are defined -->
+<!-- Loop through publication categories -->
+{% for category_key in site.publication_category %}
+  {% assign category = site.publication_category[category_key] %}
+  {% assign title_shown = false %}
 
-<!-- {% for post in site.publications reversed %}
-  <p>Found a publication: {{ post.Title }}</p>
-{% endfor %} -->
+  <!-- Loop through publication groups -->
+  {% for group_key in site.publication_groups %}
+    {% assign group = site.publication_groups[group_key] %}
+    {% assign group_title_shown = false %}
 
-{% for post in site.publications reversed %}
-  <!-- <p>~~~~~~~~~~~~~~~~ Before include</p> -->
-  {% include david-pub.html %}
-  <!-- <p>>~~~~~~~~~~~~~~~~ After include</p> -->
-
-{% endfor %}
-
-
-
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
+    <!-- Loop through site publications -->
     {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
+      {% if post.Category != category.title %}
         {% continue %}
       {% endif %}
+      {% if post.Group != group.title %}
+        {% continue %}
+      {% endif %}
+
+      <!-- Show category title once -->
       {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
+        <h2>{{ category.title }}</h2>
+        <hr />
         {% assign title_shown = true %}
       {% endunless %}
+
+      <!-- Show group title once under the category -->
+      {% unless group_title_shown %}
+        <h3>{{ group.title }}</h3>
+        {% assign group_title_shown = true %}
+      {% endunless %}
+
+      <!-- Include publication template -->
       {% include david-pub.html %}
-
-      
-
-<div>
-  <h3>Debug Info</h3>
-  <p>Title: {{ post.Title }}</p>
-  <p>Year: {{ post.Year }}</p>
-  <p>Group: {{ post.Group }}</p>
-  <p>Venue: {{ post.Venue }}</p>
-  <p>APA Citation: {{ post.APA_Citation }}</p>
-  <p>Published Link: {{ post.Published_Link }}</p>
-  <p>PDF: {{ post.PDF }}</p>
-</div>
-
     {% endfor %}
   {% endfor %}
-{% else %}
+{% endfor %}
+
+<!-- If no filtering is required, show all publications -->
+{% unless site.publication_category or site.publication_groups %}
   {% for post in site.publications reversed %}
     {% include david-pub.html %}
   {% endfor %}
-{% endif %}
-
-
+{% endunless %}

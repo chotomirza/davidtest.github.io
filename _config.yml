@@ -75,14 +75,40 @@ author:
   youtube          : # Username
   zhihu            : # Username
 
-# Publication Category - The following the list of publication categories and their headings
+# # Publication Category - The following the list of publication categories and their headings
+# publication_category:
+#   books:
+#     title: 'Books'
+#   manuscripts:
+#     title: 'Journal Articles'    
+#   conferences:
+#     title: 'Conference Papers'
+
+
+
+# Publication Category - The list of publication categories and their headings
 publication_category:
-  books:
-    title: 'Books'
-  manuscripts:
-    title: 'Journal Articles'    
-  conferences:
-    title: 'Conference Papers'
+  peer_reviewed:
+    title: "Peer Reviewed Publication"
+  non_peer_reviewed:
+    title: "Non-Peer Reviewed"
+  filed:
+    title: "Filed"
+
+# Define Research Groups
+publication_groups:
+  llm:
+    title: "LLM"
+  communication:
+    title: "Communication"
+  behavior:
+    title: "Behavior"
+  political_science:
+    title: "Political Science"
+  marketing:
+    title: "Marketing"
+
+
 
 # Site Settings
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
