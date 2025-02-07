@@ -21,51 +21,24 @@ author_profile: true
 <!-- Store unmatched publications -->
 {% assign other_publications = "" | split: "," %}
 
-<!-- 🔹 Loop through Groups first -->
+<!-- 🔹 Loop through Groups -->
 {% for group_key in site.publication_groups %}
   {% assign group = site.publication_groups[group_key] %}
   {% assign group_title_shown = false %}
 
-  <!-- Print group object and title -->
-  <p>Group object: {{ group | jsonify }}</p>
-  <p>Group title: {{ group.title }}</p>
-  <p>Groupkey: {{ group_key }}</p>
+  <!-- 🔹 Loop through Publications (Newest First) -->
+  {% for post in site.publications reversed %}
+    {% if post.Group == group.title %}
+      <!-- Show Group title only once -->
+      {% unless group_title_shown %}
+        <h2>{{ group.title }}</h2>
+        <hr />
+        {% assign group_title_shown = true %}
+      {% endunless %}
 
-  <!-- 🔹 Loop through Categories inside each Group -->
-  {% for category_key in site.publication_category %}
-    {% assign category = site.publication_category[category_key] %}
-    {% assign category_title_shown = false %}
-
-    <!-- Print category object and title -->
-    <p>Category object: {{ category | jsonify }}</p>
-    <p>Category title: {{ category.title }}</p>
-    <p>Categorykey: {{ category_key }}</p>
-
-    <!-- 🔹 Loop through Publications -->
-    {% for post in site.publications reversed %}
-      <!-- Print post.Group and post.Category -->
-      <p>post.Group: {{ post.Group }}</p>
-      <p>post.Category: {{ post.Category }}</p>
-
-      <!-- Comparison logic -->
-      {% if post.Group == group.title and post.Category == category.title %}
-        <!-- Show Group title only once -->
-        {% unless group_title_shown %}
-          <h2>{{ group.title }}</h2>
-          <hr />
-          {% assign group_title_shown = true %}
-        {% endunless %}
-
-        <!-- Show Category title only once -->
-        {% unless category_title_shown %}
-          <h3>{{ category.title }}</h3>
-          {% assign category_title_shown = true %}
-        {% endunless %}
-
-        <!-- Include the publication -->
-        {% include david-pub.html %}
-      {% endif %}
-    {% endfor %}
+      <!-- Include the publication -->
+      {% include david-pub.html %}
+    {% endif %}
   {% endfor %}
 {% endfor %}
 
@@ -73,15 +46,12 @@ author_profile: true
 {% for post in site.publications reversed %}
   {% assign matched = false %}
 
-  <!-- Check if post matches any Group & Category -->
+  <!-- Check if post matches any Group -->
   {% for group_key in site.publication_groups %}
     {% assign group = site.publication_groups[group_key] %}
-    {% for category_key in site.publication_category %}
-      {% assign category = site.publication_category[category_key] %}
-      {% if post.Group == group.title and post.Category == category.title %}
-        {% assign matched = true %}
-      {% endif %}
-    {% endfor %}
+    {% if post.Group == group.title %}
+      {% assign matched = true %}
+    {% endif %}
   {% endfor %}
 
   <!-- If no match, store for "Other" -->
