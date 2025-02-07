@@ -29,7 +29,6 @@ author_profile: true
   <!-- Print group title -->
   <p>Group: {{ group }}</p>
   <p>Group title: {{ group.title }}</p>
-  <p>Groupkey title: {{ group_key.title }}</p>
   <p>Groupkey: {{ group_key }}</p>
 
   <!-- 🔹 Loop through Categories inside each Group -->
@@ -40,7 +39,6 @@ author_profile: true
     <!-- Print category title -->
     <p>Category: {{ category }}</p>
     <p>Category title: {{ category.title }}</p>
-    <p>Categorykey title: {{ category_key.title }}</p>
     <p>Categorykey: {{ category_key }}</p>
 
     <!-- 🔹 Loop through Publications -->
@@ -48,6 +46,25 @@ author_profile: true
       <!-- Print post.Group and post.Category -->
       <p>post.Group: {{ post.Group }}</p>
       <p>post.Category: {{ post.Category }}</p>
+
+      <!-- Comparison logic -->
+      {% if post.Group == group.title and post.Category == category.title %}
+        <!-- Show Group title only once -->
+        {% unless group_title_shown %}
+          <h2>{{ group.title }}</h2>
+          <hr />
+          {% assign group_title_shown = true %}
+        {% endunless %}
+
+        <!-- Show Category title only once -->
+        {% unless category_title_shown %}
+          <h3>{{ category.title }}</h3>
+          {% assign category_title_shown = true %}
+        {% endunless %}
+
+        <!-- Include the publication -->
+        {% include david-pub.html %}
+      {% endif %}
     {% endfor %}
   {% endfor %}
 {% endfor %}

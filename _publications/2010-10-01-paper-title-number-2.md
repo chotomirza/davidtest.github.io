@@ -1,6 +1,6 @@
 ---
    Year: "2022"
-   Group: "communication"
+   Group: "Communication"
    Title: "Quantifying partisan news diets in Web and TV audiences"
    Co-Author1: "Makrus Mobius"
    Co-Author2: "Duncan Watts"
@@ -11,7 +11,7 @@
    Venue: "Science Advances"
    APA Citation: "Muise, D., Hosseinmardi, H., Howland, B., Mobius, M., Rothschild, D., & Watts, D. J. (2022). Quantifying partisanews diets in Web and TV audiences. Science Advances, 8(28). https://doi.org/10.1126/sciadv.abn0083"
    Published Link: ""
-   Category: "non_peer_reviewed"
+   Category: "Non-Peer Reviewed"
    PDF: "QuantifyingPartisanNews.pdf"
 ---
 
