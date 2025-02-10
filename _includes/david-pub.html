@@ -10,11 +10,8 @@
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
 
     <!-- Title, Authors, and Link -->
-
-
-
-    <p>
-      <strong>
+    <p style="display: flex; align-items: center; flex-wrap: wrap;">
+      <strong style="margin-right: 10px;">
         {% if post.pdf %}
           <a href="{{ post.pdf }}">{{ title }}</a>
         {% else %}
@@ -23,37 +20,40 @@
       </strong>
       {% assign authors = post.co-authors | join: ", " | strip_newlines | replace: " ,", "," | replace: ", ,", "," | replace: ", ,", "," %}
       {% if authors != "" %}
-        <span> - With {{ authors }}. {{ post.year }}.</span>
+        <span style="margin-right: 10px;"> - With {{ authors }}. {{ post.year }}.</span>
       {% else %}
-        <span> - {{ post.year }}.</span>
+        <span style="margin-right: 10px;"> - {{ post.year }}.</span>
       {% endif %}
       
       <!-- Link to Publication Page and Copy Citation to Clipboard -->
-      <span style="margin-left: 10px;">
+      <span style="margin-right: 10px;">
         {% if post.published_link %}
           <button onclick="window.open('{{ post.published_link }}', '_blank')">Link</button>
         {% else %}
           <button disabled>Link</button>
         {% endif %}
       </span>
-      <span style="margin-left: 10px;">
+      <span style="margin-right: 10px;">
         {% if post.apa_citation %}
           <button onclick="copyToClipboard('{{ post.apa_citation | escape }}')">Cite this</button>
         {% endif %}
       </span>
     </p>
-    
+
     <!-- Disciplines (if available) -->
     {% if post.group %}
       <p><strong>Disciplines:</strong> {{ post.group }}</p>
     {% endif %}
-    
-    <script>
-      function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(function() {
-          alert('Citation copied to clipboard');
-        }, function(err) {
-          console.error('Could not copy text: ', err);
-        });
-      }
-    </script>
+
+  </article>
+</div>
+
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      alert('Citation copied to clipboard');
+    }, function(err) {
+      console.error('Could not copy text: ', err);
+    });
+  }
+</script>
