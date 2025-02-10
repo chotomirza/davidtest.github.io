@@ -18,42 +18,43 @@ author_profile: true
 
 <h2> test </h2>
 
-<!-- Store unmatched publications -->
+<!-- Initialize arrays for each group and unmatched publications -->
+{% assign groups = site.publication_groups | map: 'title' %}
+{% assign publications_by_group = {} %}
+{% for group in groups %}
+  {% assign publications_by_group = publications_by_group | merge: group: "" | split: "," %}
+{% endfor %}
 {% assign other_publications = "" | split: "," %}
-{% assign group_title_shown = "" | split: "," %}
 
-<!-- 🔹 Loop through Publications (Newest First) -->
+<!-- Categorize publications -->
 {% for post in site.publications reversed %}
   {% assign matched = false %}
-
-  <!-- Check if post matches any Group -->
   {% for group_key in site.publication_groups %}
-    <h2> for group_key {{group_key.title}} </h2>
-
     {% assign group = site.publication_groups[group_key] %}
-    {% if post.Group == group.title %}
-      <!-- Show Group title only once -->
-      {% unless group_title_shown contains group_key %}
-        <h2>{{ group.title }}</h2>
-        <h2> group title is supposed to show up here</h2>
-        <hr />
-        {% assign group_title_shown = group_title_shown | push: group_key %}
-      {% endunless %}
-
-      <!-- Include the publication -->
-      {% include david-pub.html %}
+    {% if post.group == group.title %}
+      {% assign publications_by_group[group.title] = publications_by_group[group.title] | push: post %}
       {% assign matched = true %}
       {% break %}
     {% endif %}
   {% endfor %}
-
-  <!-- If no match, store for "Other" -->
   {% unless matched %}
     {% assign other_publications = other_publications | push: post %}
   {% endunless %}
 {% endfor %}
 
-<!-- 🔹 Display "Other" section if there are unmatched publications -->
+<!-- Display publications by group -->
+{% for group_key in site.publication_groups %}
+  {% assign group = site.publication_groups[group_key] %}
+  {% if publications_by_group[group.title].size > 0 %}
+    <h2>{{ group.title }}</h2>
+    <hr />
+    {% for post in publications_by_group[group.title] %}
+      {% include david-pub.html %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+<!-- Display unmatched publications -->
 {% if other_publications.size > 0 %}
   <h2>Other</h2>
   <hr />
