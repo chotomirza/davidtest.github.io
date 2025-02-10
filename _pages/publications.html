@@ -20,6 +20,7 @@ author_profile: true
 
 <!-- Store unmatched publications -->
 {% assign other_publications = "" | split: "," %}
+{% assign group_title_shown = "" | split: "," %}
 
 <!-- 🔹 Loop through Publications (Newest First) -->
 {% for post in site.publications reversed %}
@@ -27,20 +28,19 @@ author_profile: true
 
   <!-- Check if post matches any Group -->
   {% for group_key in site.publication_groups %}
-  <!-- print group key -->
-  <h2> {{ group_key }} </h2>
     {% assign group = site.publication_groups[group_key] %}
     {% if post.Group == group.title %}
       <!-- Show Group title only once -->
-      {% unless group_title_shown[group_key] %}
+      {% unless group_title_shown contains group_key %}
         <h2>{{ group.title }}</h2>
         <hr />
-        {% assign group_title_shown = group_title_shown | merge: group_key %}
+        {% assign group_title_shown = group_title_shown | push: group_key %}
       {% endunless %}
 
       <!-- Include the publication -->
       {% include david-pub.html %}
       {% assign matched = true %}
+      {% break %}
     {% endif %}
   {% endfor %}
 
