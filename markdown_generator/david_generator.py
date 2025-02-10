@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # Define input CSV file
-csv_file = "david_publications.csv"  # Update with actual CSV file name
+csv_file = "david_publications2.csv"  # Update with actual CSV file name
 
 # Define output directory (Ensure it exists before writing files)
 output_dir = "../_publications"
@@ -75,3 +75,16 @@ co-authors:
     print(f"Generated: {md_filepath}")
 
 print("Markdown generation complete.")
+
+
+
+
+
+
+
+# Logic
+# Convert to String: The title is converted to a string. If the title is NaN, it is replaced with "untitled".
+# Remove Invalid Characters: The function iterates through each character in the title and keeps only alphanumeric characters, spaces, underscores, and hyphens.
+# Replace Spaces with Hyphens: Spaces are replaced with hyphens to create a URL-friendly slug.
+# Convert to Lowercase: The resulting string is converted to lowercase.
+# Truncate: The filename is truncated to a maximum length of 80 characters.

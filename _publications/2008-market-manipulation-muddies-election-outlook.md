@@ -10,7 +10,7 @@ published_link: ""
 pdf: "."
 apa_citation: "Rothschild, D., & Wolfers, J. (2008). Market manipulation muddies election outlook. Derived from The Wall Street Journal. https://www.wsj.com/articles/SB122283114935193363"
 co-authors:
-  - "Justin Wolfers"
+  - "Wolfers"
   - ""
   - ""
   - ""

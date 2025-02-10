@@ -11,7 +11,7 @@ pdf: "."
 apa_citation: "Goel, S., Obeng, A., & Rothschild, D. (2015). Non-representative surveys: Fast, cheap, and mostly accurate. Work Pap."
 co-authors:
   - "Sharad Goel"
-  - "Adam"
+  - "Obeng"
   - ""
   - ""
   - ""

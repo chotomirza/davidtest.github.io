@@ -11,9 +11,9 @@ pdf: "PassiveVersusSurveys.pdf"
 apa_citation: "Konitzer, T., Allen, J., Eckman, S., Howland, B., Mobius, M., Rothschild, D., & Watts, D. J. (2021). Comparing Estimates of News Consumption from Survey and Passively Collected Behavioral Data. Public Opinion Quarterly, 85(S1), 347-370. https://doi.org/10.1093/poq/nfab023"
 co-authors:
   - "Tobias Konitzer"
-  - "Duncan"
+  - "Jennifer Allen"
+  - "Eckman"
+  - "Baird Howland"
   - "Markus Mobius"
-  - "Jenny Allen"
-  - "Baird"
-  - ""
+  - "Duncan J. Watts"
 ---

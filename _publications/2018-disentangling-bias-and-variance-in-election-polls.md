@@ -10,9 +10,9 @@ published_link: "https://www.tandfonline.com/doi/abs/10.1080/01621459.2018.14488
 pdf: "."
 apa_citation: "Shirani-Mehr, H., Rothschild, D., Goel, S., & Gelman, A. (2018). Disentangling Bias and Variance in Election Polls. Journal of the American Statistical Association, 113(522), 607-614. https://doi.org/10.1080/01621459.2018.1448823"
 co-authors:
-  - "Sharad"
+  - "Shirani-Mehr"
+  - "Sharad Goel"
   - "Gelman"
-  - "and Hausmann"
   - ""
   - ""
   - ""

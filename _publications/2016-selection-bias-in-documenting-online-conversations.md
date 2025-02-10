@@ -10,7 +10,7 @@ published_link: ""
 pdf: "EntityDetection.pdf"
 apa_citation: "-"
 co-authors:
-  - "Ran He"
+  - "-"
   - ""
   - ""
   - ""

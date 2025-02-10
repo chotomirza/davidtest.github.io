@@ -10,7 +10,7 @@ published_link: ""
 pdf: "."
 apa_citation: "Watts, D. J., & Rothschild, D. (2017). Rebuilding legitimacy in a post-truth age. Medium."
 co-authors:
-  - "Duncan Watts"
+  - "Duncan J. Watts"
   - ""
   - ""
   - ""

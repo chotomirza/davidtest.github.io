@@ -11,7 +11,7 @@ pdf: "MobileMode.pdf"
 apa_citation: "Konitzer, T., Eckman, S., & Rothschild, D. (2016). Mobile as Survey Mode."
 co-authors:
   - "Tobias Konitzer"
-  - "Stephanie"
+  - "Eckman"
   - ""
   - ""
   - ""

@@ -10,7 +10,7 @@ published_link: ""
 pdf: "MinorityReportFakeNewsCrisisFirstDraft.pdf"
 apa_citation: "Watts, D. J., & Rothschild, D. M. (2017). The minority report on the fake news crisis:(spoiler alert: its the real news). AA. VV., Understanding and Addressing the Disinformation Ecosystem, 23-37."
 co-authors:
-  - "Duncan Watts"
+  - "Duncan J. Watts"
   - ""
   - ""
   - ""

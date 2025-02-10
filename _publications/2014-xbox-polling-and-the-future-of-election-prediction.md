@@ -8,7 +8,7 @@ venue: "Harvard Business Review"
 category: "non-Peer Reviewed"
 published_link: ""
 pdf: "."
-apa_citation: "Rothschild, D., (2014, September). Xbox polling and the future of election prediction. Harvard Business Review. https://hbr.org/2014/09/xbox-polling-and-the-future-of-election-prediction "
+apa_citation: "Rothschild, D., (2014, September). Xbox polling and the future of election prediction. Harvard Business Review. https://hbr.org/2014/09/xbox-polling-and-the-future-of-election-prediction"
 co-authors:
   - ""
   - ""

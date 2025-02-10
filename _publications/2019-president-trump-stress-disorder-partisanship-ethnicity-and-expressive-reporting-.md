@@ -10,10 +10,10 @@ published_link: "https://journals.sagepub.com/doi/full/10.1177/2158244019830865"
 pdf: "PresidentialStress.pdf"
 apa_citation: "Krupenkin, M., Rothschild, D., Hill, S., & Yom-Tov, E. (2019). President Trump Stress Disorder: Partisanship, Ethnicity, and Expressive Reporting of Mental Distress After the 2016 Election. Sage Open, 9(1). https://doi.org/10.1177/2158244019830865"
 co-authors:
-  - "Elad Yom-Tov"
   - "Masha Krupenkin"
-  - ""
-  - ""
+  - "Shawndra Hill"
+  - "Yom-Tov"
+  - "Ethnicity"
   - ""
   - ""
 ---

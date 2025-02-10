@@ -10,10 +10,10 @@ published_link: "https://www.cambridge.org/core/journals/american-political-scie
 pdf: "OnePersonOneVote.pdf"
 apa_citation: "GOEL, S., MEREDITH, M., MORSE, M., ROTHSCHILD, D., & SHIRANI-MEHR, H. (2020). One Person, One Vote: Estimating the Prevalence of Double Voting in U.S. Presidential Elections. American Political Science Review, 114(2), 456-469. https://doi.org/10.1017/s000305541900087x"
 co-authors:
-  - "Marc Meredith"
   - "Sharad Goel"
-  - ""
-  - ""
+  - "Marc Meredith"
+  - "MORSE"
+  - "SHIRANI-MEHR"
   - ""
   - ""
 ---

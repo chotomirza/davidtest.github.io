@@ -1,5 +1,5 @@
 ---
-title: "A new way to think about confidence ranges "
+title: "A new way to think about confidence ranges"
 collection: publications
 permalink: /publication/a-new-way-to-think-about-confidence-ranges
 year: "2010"
@@ -10,8 +10,8 @@ published_link: ""
 pdf: "."
 apa_citation: "-"
 co-authors:
-  - "Florian Teschner"
-  - "Dan Goldstein"
+  - "-"
+  - ""
   - ""
   - ""
   - ""

@@ -10,9 +10,9 @@ published_link: "https://www.taylorfrancis.com/chapters/edit/10.4324/97813156690
 pdf: "HighFrequency.pdf"
 apa_citation: "Gelman, A., Goel, S., Rothschild, D., & Wang, W. (2016). High-frequency polling with non-representative data. In Political Communication in Real Time (pp. 89-105). Routledge."
 co-authors:
-  - "Sharad"
   - "Gelman"
-  - "and Wang"
+  - "Sharad Goel"
+  - "Wang"
   - ""
   - ""
   - ""

@@ -10,7 +10,7 @@ published_link: ""
 pdf: "."
 apa_citation: "-"
 co-authors:
-  - "Ling Dog"
+  - "-"
   - ""
   - ""
   - ""

@@ -1,5 +1,5 @@
 ---
-title: "Towards an automated clustering for online news events: A method proposal and data set for further development "
+title: "Towards an automated clustering for online news events: A method proposal and data set for further development"
 collection: publications
 permalink: /publication/towards-an-automated-clustering-for-online-news-events-a-method-proposal-and-dat
 year: "2018"
@@ -10,9 +10,9 @@ published_link: ""
 pdf: "."
 apa_citation: "-"
 co-authors:
-  - "Markus Mobius"
-  - "Duncan Watts"
-  - "Marcel Wittich"
+  - "-"
+  - ""
+  - ""
   - ""
   - ""
   - ""

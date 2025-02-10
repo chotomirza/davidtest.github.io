@@ -12,7 +12,7 @@ apa_citation: "Konitzer, T., Rothschild, D., Hill, S., & Wilbur, K. C. (2018). U
 co-authors:
   - "Tobias Konitzer"
   - "Shawndra Hill"
-  - ""
+  - "Wilbur"
   - ""
   - ""
   - ""

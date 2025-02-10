@@ -10,7 +10,7 @@ published_link: "https://journals.plos.org/plosone/article?id=10.1371/journal.po
 pdf: "UnderstandingMarketFuncationality.pdf"
 apa_citation: "Schmitz, J., & Rothschild, D. (2019). Understanding market functionality and trading success. PLOS ONE, 14(8), e0219606. https://doi.org/10.1371/journal.pone.0219606"
 co-authors:
-  - "Jim Schmitz"
+  - "Schmitz"
   - ""
   - ""
   - ""

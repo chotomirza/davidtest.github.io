@@ -10,7 +10,7 @@ published_link: "http://ubplj.org/index.php/jpm/article/view/1179"
 pdf: "."
 apa_citation: "Rothschild, D., & Sethi, R. (2016). Trading Strategies and Market Microstructure: Evidence from a Prediction Market. The Journal of Prediction Markets, 10(1), 1-29. https://doi.org/10.5750/jpm.v10i1.1179"
 co-authors:
-  - "Rajiv Sethi"
+  - "Sethi"
   - ""
   - ""
   - ""
