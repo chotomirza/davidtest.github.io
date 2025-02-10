@@ -19,6 +19,12 @@ author_profile: true
 <h2> test </h2>
 <h2> site.publication_groups {{site.publication_groups}} </h2>
 
+<!-- print each item of site.publication_groups in a new line -->
+{% for group_key in site.publication_groups %}
+  <h2> group_key {{group_key}} </h2>
+  <h2> site.publication_groups[group_key] {{site.publication_groups[group_key]}} </h2>
+{% endfor %}
+
 <!-- Initialize arrays for each group and unmatched publications -->
 {% assign publications_by_group = {} %}
 {% for group_key in site.publication_groups %}
