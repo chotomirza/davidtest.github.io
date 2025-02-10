@@ -51,9 +51,10 @@
 <script>
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
-      alert('Citation copied to clipboard'); // maybe this is not needed but we'll keep it here for now
+      alert('Citation copied to clipboard');
     }, function(err) {
       console.error('Could not copy text: ', err);
     });
   }
 </script>
+
