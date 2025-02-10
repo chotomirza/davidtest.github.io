@@ -25,8 +25,8 @@ author_profile: true
   {% assign group = site.publication_groups[group_key] %}
   <h3> group_key: {{ group_key }} </h3>
   <h3> group: {{ group }} </h3>
-  <h3> group.title: {{ group.title }} </h3>
-  {% assign publications_by_group = publications_by_group | merge: group.title: "" | split: "," %}
+  <h3> group.title: {{ group['title'] }} </h3>
+  {% assign publications_by_group = publications_by_group | merge: group['title']: "" | split: "," %}
 {% endfor %}
 {% assign other_publications = "" | split: "," %}
 
@@ -35,8 +35,8 @@ author_profile: true
   {% assign matched = false %}
   {% for group_key in site.publication_groups %}
     {% assign group = site.publication_groups[group_key] %}
-    {% if post.group == group.title %}
-      {% assign publications_by_group = publications_by_group | merge: group.title: (publications_by_group[group.title] | push: post) %}
+    {% if post.group == group['title'] %}
+      {% assign publications_by_group = publications_by_group | merge: group['title']: (publications_by_group[group['title']] | push: post) %}
       {% assign matched = true %}
       {% break %}
     {% endif %}
@@ -49,11 +49,11 @@ author_profile: true
 <!-- Display publications by group -->
 {% for group_key in site.publication_groups %}
   {% assign group = site.publication_groups[group_key] %}
-  <h3> Displaying group: {{ group.title }} </h3>
-  {% if publications_by_group[group.title].size > 0 %}
-    <h2>{{ group.title }}</h2>
+  <h3> Displaying group: {{ group['title'] }} </h3>
+  {% if publications_by_group[group['title']].size > 0 %}
+    <h2>{{ group['title'] }}</h2>
     <hr />
-    {% for post in publications_by_group[group.title] %}
+    {% for post in publications_by_group[group['title']] %}
       {% include david-pub.html %}
     {% endfor %}
   {% endif %}
