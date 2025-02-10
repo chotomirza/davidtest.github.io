@@ -27,6 +27,8 @@ author_profile: true
 
   <!-- Check if post matches any Group -->
   {% for group_key in site.publication_groups %}
+  <!-- print group key -->
+  <h2> {{ group_key }} </h2>
     {% assign group = site.publication_groups[group_key] %}
     {% if post.Group == group.title %}
       <!-- Show Group title only once -->
