@@ -32,8 +32,11 @@
   <p>
     <button onclick="window.open('{{ post.published_link }}', '_blank')">Link</button>
   </p>
+{% else %}
+  <p>
+    <button disabled>Link</button>
+  </p>
 {% endif %}
-
 
       <!-- Copy Citation to Clipboard -->
            <!-- APA Citation (No Extra Blank Line) -->
