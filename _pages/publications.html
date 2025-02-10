@@ -16,33 +16,10 @@ author_profile: true
 
 {% include base_path %}
 
-
-
 <!-- Store unmatched publications -->
 {% assign other_publications = "" | split: "," %}
 
-<!-- 🔹 Loop through Groups -->
-{% for group_key in site.publication_groups %}
-  {% assign group = site.publication_groups[group_key] %}
-  {% assign group_title_shown = false %}
-
-  <!-- 🔹 Loop through Publications (Newest First) -->
-  {% for post in site.publications reversed %}
-    {% if post.Group == group.title %}
-      <!-- Show Group title only once -->
-      {% unless group_title_shown %}
-        <h2>{{ group.title }}</h2>
-        <hr />
-        {% assign group_title_shown = true %}
-      {% endunless %}
-
-      <!-- Include the publication -->
-      {% include david-pub.html %}
-    {% endif %}
-  {% endfor %}
-{% endfor %}
-
-<!-- 🔹 Capture unmatched publications in "Other" section -->
+<!-- 🔹 Loop through Publications (Newest First) -->
 {% for post in site.publications reversed %}
   {% assign matched = false %}
 
@@ -50,6 +27,15 @@ author_profile: true
   {% for group_key in site.publication_groups %}
     {% assign group = site.publication_groups[group_key] %}
     {% if post.Group == group.title %}
+      <!-- Show Group title only once -->
+      {% unless group_title_shown[group_key] %}
+        <h2>{{ group.title }}</h2>
+        <hr />
+        {% assign group_title_shown = group_title_shown | merge: group_key %}
+      {% endunless %}
+
+      <!-- Include the publication -->
+      {% include david-pub.html %}
       {% assign matched = true %}
     {% endif %}
   {% endfor %}
