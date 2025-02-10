@@ -24,14 +24,18 @@
       {% else %}
         <span> - {{ post.year }}.</span>
       {% endif %}
+
+      <!-- Copy Citation to Clipboard -->
+           <!-- APA Citation (No Extra Blank Line) -->
+    {% if post.apa_citation %}
+    <p>
+      <button onclick="copyToClipboard('{{ post.apa_citation | escape }}')">Cite this</button>
+    </p>
+  {% endif %}
+  
     </p>
 
-    <!-- APA Citation (No Extra Blank Line) -->
-    {% if post.apa_citation %}
-      <p>
-        <button onclick="copyToClipboard('{{ post.apa_citation | escape }}')">Cite this</button>
-      </p>
-    {% endif %}
+
 
     <!-- Disciplines (if available) -->
     {% if post.group %}
@@ -48,7 +52,7 @@
 <script>
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
-      alert('Citation copied to clipboard');
+      alert('Citation copied to clipboard'); // maybe this is not needed but we'll keep it here for now
     }, function(err) {
       console.error('Could not copy text: ', err);
     });
