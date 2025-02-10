@@ -17,6 +17,7 @@ author_profile: true
 {% include base_path %}
 
 <h2> test </h2>
+<h2> site.publication_groups {{site.publication_groups}} </h2>
 
 <!-- Initialize arrays for each group and unmatched publications -->
 {% assign groups = site.publication_groups | map: 'title' %}
