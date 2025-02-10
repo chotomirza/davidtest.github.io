@@ -28,7 +28,9 @@
 
     <!-- APA Citation (No Extra Blank Line) -->
     {% if post.apa_citation %}
-      <p><strong>APA Citation:</strong> {{ post.apa_citation }}</p>
+      <p>
+        <button onclick="copyToClipboard('{{ post.apa_citation | escape }}')">Cite this</button>
+      </p>
     {% endif %}
 
     <!-- Disciplines (if available) -->
@@ -42,3 +44,13 @@
     {% endif %}
   </article>
 </div>
+
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      alert('Citation copied to clipboard');
+    }, function(err) {
+      console.error('Could not copy text: ', err);
+    });
+  }
+</script>
