@@ -18,17 +18,15 @@ author_profile: true
 
 <h2> test </h2>
 <h2> site.publication_groups {{site.publication_groups}} </h2>
-<h2> site.publication_groups.title {{site.publication_groups.title}} </h2>
-
-<h3> for group in site.publication_groups,..., -> group {{group.title}} </h3>
 
 <!-- Initialize arrays for each group and unmatched publications -->
-{% assign groups = site.publication_groups | map: 'title' %}
 {% assign publications_by_group = {} %}
-{% for group in groups %}
-  <h3> for group in groups,,,, -> group {{group}} </h3>
-  
-  {% assign publications_by_group = publications_by_group | merge: group: "" | split: "," %}
+{% for group_key in site.publication_groups %}
+  {% assign group = site.publication_groups[group_key] %}
+  <h3> group_key: {{ group_key }} </h3>
+  <h3> group: {{ group }} </h3>
+  <h3> group.title: {{ group.title }} </h3>
+  {% assign publications_by_group = publications_by_group | merge: group.title: "" | split: "," %}
 {% endfor %}
 {% assign other_publications = "" | split: "," %}
 
@@ -38,7 +36,7 @@ author_profile: true
   {% for group_key in site.publication_groups %}
     {% assign group = site.publication_groups[group_key] %}
     {% if post.group == group.title %}
-      {% assign publications_by_group[group.title] = publications_by_group[group.title] | push: post %}
+      {% assign publications_by_group = publications_by_group | merge: group.title: (publications_by_group[group.title] | push: post) %}
       {% assign matched = true %}
       {% break %}
     {% endif %}
