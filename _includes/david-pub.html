@@ -24,37 +24,26 @@
       {% else %}
         <span> - {{ post.year }}.</span>
       {% endif %}
-
-
-
-<!-- Link to Publication Page -->
-{% if post.published_link %}
-  <p>
-    <button onclick="window.open('{{ post.published_link }}', '_blank')">Link</button>
-  </p>
-{% else %}
-  <p>
-    <button disabled>Link</button>
-  </p>
-{% endif %}
-
-      <!-- Copy Citation to Clipboard -->
-           <!-- APA Citation (No Extra Blank Line) -->
-    {% if post.apa_citation %}
-    <p>
-      <button onclick="copyToClipboard('{{ post.apa_citation | escape }}')">Cite this</button>
-    </p>
-  {% endif %}
-
     </p>
 
-
+    <!-- Link to Publication Page and Copy Citation to Clipboard -->
+    <div style="display: inline-block;">
+      {% if post.published_link %}
+        <button onclick="window.open('{{ post.published_link }}', '_blank')">Link</button>
+      {% else %}
+        <button disabled>Link</button>
+      {% endif %}
+    </div>
+    <div style="display: inline-block;">
+      {% if post.apa_citation %}
+        <button onclick="copyToClipboard('{{ post.apa_citation | escape }}')">Cite this</button>
+      {% endif %}
+    </div>
 
     <!-- Disciplines (if available) -->
     {% if post.group %}
       <p><strong>Disciplines:</strong> {{ post.group }}</p>
     {% endif %}
-
 
   </article>
 </div>
