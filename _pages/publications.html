@@ -39,7 +39,7 @@ author_profile: true
 
 <!-- Categorize publications -->
 {% for post in site.publications reversed %}
-  <p>Post: {{ post | jsonify }}</p>
+
   {% assign matched = false %}
   {% for group_key in publication_groups %}
     {% assign group_title = publication_groups[group_key] %}
