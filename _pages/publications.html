@@ -20,13 +20,13 @@ author_profile: true
 
 <!-- Define category mapping -->
 {% assign category_map = 
-  {
-    "LLM": "llm",
-    "Communication": "communication",
-    "Behavioral": "behavior",
-    "Political Science": "political_science",
-    "Marketing": "marketing"
-  }
+  [
+    {"name": "LLM", "key": "llm"},
+    {"name": "Communication", "key": "communication"},
+    {"name": "Behavioral", "key": "behavior"},
+    {"name": "Political Science", "key": "political_science"},
+    {"name": "Marketing", "key": "marketing"}
+  ]
 %}
 
 <!-- Define categories -->
@@ -55,12 +55,18 @@ author_profile: true
   {% assign matched = false %}
   {% assign post_group = post.group | strip %}
 
-  <!-- Convert post_group using the category map -->
-  {% assign mapped_group = category_map[post_group] %}
+  <!-- Manually find mapped group -->
+  {% assign mapped_group = "" %}
+  {% for category in category_map %}
+    {% if post_group == category.name %}
+      {% assign mapped_group = category.key %}
+    {% endif %}
+  {% endfor %}
 
+  <!-- Debugging Output -->
   <p><strong>Debugging:</strong> Post title: "{{ post.title }}", Raw Group: "{{ post_group }}", Mapped Group: "{{ mapped_group }}"</p>
 
-  {% if mapped_group %}
+  {% if mapped_group != "" %}
     {% assign updated_list = publications_by_group[mapped_group] | push: post %}
     {% assign publications_by_group = publications_by_group | merge: mapped_group, updated_list %}
     {% assign matched = true %}
