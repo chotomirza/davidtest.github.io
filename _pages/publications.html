@@ -17,34 +17,33 @@ author_profile: true
 {% include base_path %}
 
 <h2> test </h2>
-<h2> site.publication_groups {{site.publication_groups}} </h2>
 
-<!-- print each item of site.publication_groups in a new line -->
-{% for group_key in site.publication_groups %}
-  <h2> group_key {{group_key}} </h2>
-  <h2> group_key.llm {{group_key.llm}} </h2>
-  <h2> group_key['llm'] {{group_key['llm']}} </h2>
-
-  <!-- the one below shows up as blank -->
-  <h2> site.publication_groups {{site.publication_groups}} </h2>
-  <h2> site.publication_groups[group_key] {{site.publication_groups[group_key]}} </h2>
-{% endfor %}
+<!-- Manually define categories -->
+{% assign publication_groups = 
+  {
+    "llm": "LLM",
+    "communication": "Communication",
+    "behavior": "Behavior",
+    "political_science": "Political Science",
+    "marketing": "Marketing"
+  } 
+%}
 
 <!-- Initialize arrays for each group and unmatched publications -->
 {% assign publications_by_group = {} %}
-{% for group_key in site.publication_groups %}
-  {% assign group = site.publication_groups[group_key] %}
-  {% assign publications_by_group = publications_by_group | merge: group.title: "" | split: "," %}
+{% for group_key in publication_groups %}
+  {% assign group_title = publication_groups[group_key] %}
+  {% assign publications_by_group = publications_by_group | merge: group_title: "" | split: "," %}
 {% endfor %}
 {% assign other_publications = "" | split: "," %}
 
 <!-- Categorize publications -->
 {% for post in site.publications reversed %}
   {% assign matched = false %}
-  {% for group_key in site.publication_groups %}
-    {% assign group = site.publication_groups[group_key] %}
-    {% if post.group == group.title %}
-      {% assign publications_by_group = publications_by_group | merge: group.title: (publications_by_group[group.title] | push: post) %}
+  {% for group_key in publication_groups %}
+    {% assign group_title = publication_groups[group_key] %}
+    {% if post.group == group_title %}
+      {% assign publications_by_group = publications_by_group | merge: group_title: (publications_by_group[group_title] | push: post) %}
       {% assign matched = true %}
       {% break %}
     {% endif %}
@@ -55,11 +54,11 @@ author_profile: true
 {% endfor %}
 
 <!-- Display publications by group -->
-{% for group_key in site.publication_groups %}
-  {% assign group = site.publication_groups[group_key] %}
-  {% assign group_publications = publications_by_group[group.title] %}
+{% for group_key in publication_groups %}
+  {% assign group_title = publication_groups[group_key] %}
+  {% assign group_publications = publications_by_group[group_title] %}
   {% if group_publications.size > 0 %}
-    <h2>{{ group.title }}</h2>
+    <h2>{{ group_title }}</h2>
     <hr />
     {% for post in group_publications %}
       {% include david-pub.html %}
