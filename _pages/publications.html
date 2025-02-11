@@ -29,6 +29,10 @@ author_profile: true
   } 
 %}
 
+{% if post.group %}
+<p><strong>Disciplines1:</strong> {{ post.group }}</p>
+{% endif %}
+
 <!-- Initialize arrays for each group and unmatched publications -->
 {% assign publications_by_group = {} %}
 {% for group_key in publication_groups %}
