@@ -16,23 +16,24 @@ author_profile: true
 
 {% include base_path %}
 
-<h2> test </h2>
+<h2>Publications</h2>
 
-<!-- Manually define categories -->
+<!-- Define categories as an array of arrays -->
 {% assign publication_groups = 
-  {
-    "llm": "LLM",
-    "communication": "Communication",
-    "behavior": "Behavioral",
-    "political_science": "Political Science",
-    "marketing": "Marketing"
-  } 
+  [
+    ["llm", "LLM"],
+    ["communication", "Communication"],
+    ["behavior", "Behavioral"],
+    ["political_science", "Political Science"],
+    ["marketing", "Marketing"]
+  ]
 %}
 
 <!-- Initialize arrays for each group and unmatched publications -->
 {% assign publications_by_group = {} %}
-{% for group_key in publication_groups %}
-  {% assign group_title = publication_groups[group_key] %}
+{% for group in publication_groups %}
+  {% assign group_key = group[0] %}
+  {% assign group_title = group[1] %}
   {% assign publications_by_group = publications_by_group | merge: group_title: "" | split: "," %}
 {% endfor %}
 {% assign other_publications = "" | split: "," %}
@@ -40,9 +41,10 @@ author_profile: true
 <!-- Categorize publications -->
 {% for post in site.publications reversed %}
   {% assign matched = false %}
-  {% for group_key in publication_groups %}
-    {% assign group_title = publication_groups[group_key] %}
-    {% if post.group | downcase | strip == group_title | downcase | strip %}
+  {% for group in publication_groups %}
+    {% assign group_key = group[0] %}
+    {% assign group_title = group[1] %}
+    {% if post.group | downcase | strip == group_key | downcase | strip %}
       {% assign publications_by_group = publications_by_group | merge: group_title: (publications_by_group[group_title] | push: post) %}
       {% assign matched = true %}
       {% break %}
@@ -54,8 +56,8 @@ author_profile: true
 {% endfor %}
 
 <!-- Display publications by group -->
-{% for group_key in publication_groups %}
-  {% assign group_title = publication_groups[group_key] %}
+{% for group in publication_groups %}
+  {% assign group_title = group[1] %}
   {% assign group_publications = publications_by_group[group_title] %}
   {% if group_publications.size > 0 %}
     <h2>{{ group_title }}</h2>
