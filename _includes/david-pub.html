@@ -18,7 +18,7 @@
           {{ title }}
         {% endif %}
       </strong>
-      {% assign authors = post.co-authors | join: ", " | strip_newlines | replace: " ,", "," | replace: ", ,", "," | replace: ", ,", "," %}
+      {% assign authors = post.co-authors | join: ", " | split: ", " | reject: "" | join: ", " %}
       {% if authors != "" %}
         <span style="margin-right: 10px;"> - With {{ authors }}. {{ post.year }}.</span>
       {% else %}
