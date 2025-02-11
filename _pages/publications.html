@@ -21,9 +21,9 @@ author_profile: true
 <!-- Define categories -->
 {% assign category_titles = ["LLM", "Communication", "Behavioral", "Political Science", "Marketing"] %}
 
-for category in category_titles
+{% for category in category_titles %}
   <p>{{ category }}</p>
-endfor
+{% endfor %}
 
 <!-- Track which categories have been displayed -->
 {% assign displayed_categories = "" | split: "," %}
