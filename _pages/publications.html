@@ -55,13 +55,9 @@ author_profile: true
   {% assign matched = false %}
   {% assign post_group = post.group | strip %}
 
-  <!-- Manually find mapped group -->
-  {% assign mapped_group = "" %}
-  {% for category in category_map %}
-    {% if post_group == category.name %}
-      {% assign mapped_group = category.key %}
-    {% endif %}
-  {% endfor %}
+  <!-- Use capture to store the mapped group correctly -->
+  {% capture mapped_group %}{% for category in category_map %}{% if post_group == category.name %}{{ category.key }}{% endif %}{% endfor %}{% endcapture %}
+  {% assign mapped_group = mapped_group | strip %}
 
   <!-- Debugging Output -->
   <p><strong>Debugging:</strong> Post title: "{{ post.title }}", Raw Group: "{{ post_group }}", Mapped Group: "{{ mapped_group }}"</p>
