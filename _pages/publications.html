@@ -16,52 +16,43 @@ author_profile: true
 
 {% include base_path %}
 
-
-
-
-{% assign category_titles = ["LLM", "Communication", "Behavioral", "Political Science", "Marketing"] %}
-
-<h2>Categories</h2>
-
-<p>Debug: Before Loop</p>
-
-<!-- Inspect the category_titles array -->
-<p>{{ category_titles | inspect }}</p>
-
-{% for category in category_titles %}
-  <p>{{ category }}</p>
-{% endfor %}
-
-<p>Debug: After Loop</p>
-
-
-
-
 <h2>Publications</h2>
 
-<!-- Track which categories have been displayed -->
-{% assign displayed_categories = "" | split: "," %}
+<!-- Define categories in the order we want to display them -->
+{% assign categories = "LLM, Communication, Behavioral, Political Science, Marketing" | split: ", " %}
 
-<!-- Loop through publications -->
+<!-- Loop through each category and display matching publications -->
+{% for category in categories %}
+  {% assign found = false %}
+
+  <!-- Scan through all publications -->
+  {% for post in site.publications reversed %}
+    {% assign post_group = post.group | strip %}
+
+    {% if post_group == category %}
+      {% if found == false %}
+        <h2>{{ category }}</h2>
+        <hr />
+        {% assign found = true %}
+      {% endif %}
+
+      {% include david-pub.html %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+<!-- Handle unmatched publications -->
+{% assign found_other = false %}
 {% for post in site.publications reversed %}
   {% assign post_group = post.group | strip %}
 
-  <!-- Debugging Output -->
-  <p>{{ post_group }}"</p>
+  {% unless categories contains post_group %}
+    {% if found_other == false %}
+      <h2>Other</h2>
+      <hr />
+      {% assign found_other = true %}
+    {% endif %}
 
-  <!-- Skip if no group is defined -->
-  {% if post_group == "" %}
-    <p><strong>❌ Unmatched:</strong> {{ post.title }} marked as Other</p>
-    {% continue %}
-  {% endif %}
-
-  <!-- Check if we already displayed this category -->
-  {% unless displayed_categories contains post_group %}
-    <h2>{{ category_titles[post_group] | default: "Other" }}</h2>
-    <hr />
-    {% assign displayed_categories = displayed_categories | push: post_group %}
+    {% include david-pub.html %}
   {% endunless %}
-
-  <!-- Display the publication -->
-  {% include david-pub.html %}
 {% endfor %}
