@@ -18,80 +18,40 @@ author_profile: true
 
 <h2>Publications</h2>
 
-<!-- Define category mapping -->
-{% assign category_map = 
-  [
-    {"name": "LLM", "key": "llm"},
-    {"name": "Communication", "key": "communication"},
-    {"name": "Behavioral", "key": "behavior"},
-    {"name": "Political Science", "key": "political_science"},
-    {"name": "Marketing", "key": "marketing"}
-  ]
-%}
-
 <!-- Define categories -->
-{% assign publication_groups = 
-  [
-    {"key": "llm", "title": "LLM"},
-    {"key": "communication", "title": "Communication"},
-    {"key": "behavior", "title": "Behavioral"},
-    {"key": "political_science", "title": "Political Science"},
-    {"key": "marketing", "title": "Marketing"}
-  ]
+{% assign category_titles = 
+  {
+    "LLM": "LLM",
+    "Communication": "Communication",
+    "Behavioral": "Behavioral",
+    "Political Science": "Political Science",
+    "Marketing": "Marketing"
+  }
 %}
 
-<!-- Initialize dictionary -->
-{% assign publications_by_group = {} %}
-{% for group in publication_groups %}
-  {% assign empty_list = "" | split: "," %}
-  {% assign publications_by_group = publications_by_group | merge: group.key, empty_list %}
-{% endfor %}
+<!-- Track which categories have been displayed -->
+{% assign displayed_categories = "" | split: "," %}
 
-<!-- Initialize other publications list -->
-{% assign other_publications = "" | split: "," %}
-
-<!-- Categorize publications -->
+<!-- Loop through publications -->
 {% for post in site.publications reversed %}
-  {% assign matched = false %}
   {% assign post_group = post.group | strip %}
 
-  <!-- Use capture to store the mapped group correctly -->
-  {% capture mapped_group %}{% for category in category_map %}{% if post_group == category.name %}{{ category.key }}{% endif %}{% endfor %}{% endcapture %}
-  {% assign mapped_group = mapped_group | strip %}
-
   <!-- Debugging Output -->
-  <p><strong>Debugging:</strong> Post title: "{{ post.title }}", Raw Group: "{{ post_group }}", Mapped Group: "{{ mapped_group }}"</p>
+  <p><strong>Debugging:</strong> Post title: "{{ post.title }}", Group: "{{ post_group }}"</p>
 
-  {% if mapped_group != "" %}
-    {% assign updated_list = publications_by_group[mapped_group] | push: post %}
-    {% assign publications_by_group = publications_by_group | merge: mapped_group, updated_list %}
-    {% assign matched = true %}
-    <p><strong>✔ Matched:</strong> {{ post.title }} categorized under {{ mapped_group }}</p>
-  {% endif %}
-
-  {% unless matched %}
-    {% assign other_publications = other_publications | push: post %}
+  <!-- Skip if no group is defined -->
+  {% if post_group == "" %}
     <p><strong>❌ Unmatched:</strong> {{ post.title }} marked as Other</p>
-  {% endunless %}
-{% endfor %}
-
-<!-- Display categorized publications -->
-{% for group in publication_groups %}
-  {% assign group_publications = publications_by_group[group.key] %}
-  {% if group_publications.size > 0 %}
-    <h2>{{ group.title }}</h2>
-    <hr />
-    {% for post in group_publications %}
-      {% include david-pub.html %}
-    {% endfor %}
+    {% continue %}
   {% endif %}
-{% endfor %}
 
-<!-- Display unmatched publications -->
-{% if other_publications.size > 0 %}
-  <h2>Other</h2>
-  <hr />
-  {% for post in other_publications %}
-    {% include david-pub.html %}
-  {% endfor %}
-{% endif %}
+  <!-- Check if we already displayed this category -->
+  {% unless displayed_categories contains post_group %}
+    <h2>{{ category_titles[post_group] | default: "Other" }}</h2>
+    <hr />
+    {% assign displayed_categories = displayed_categories | push: post_group %}
+  {% endunless %}
+
+  <!-- Display the publication -->
+  {% include david-pub.html %}
+{% endfor %}
