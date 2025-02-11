@@ -46,17 +46,25 @@ author_profile: true
   {% assign matched = false %}
   {% assign post_group = post.group | downcase | strip %}
 
+  <!-- Debugging: Print out the group of each publication -->
+  <p><strong>Debugging:</strong> Post title: {{ post.title }}, Group: {{ post.group }}</p>
+
   {% for group in publication_groups %}
+    <!-- Debugging: Print expected category keys -->
+    <p><strong>Comparing:</strong> Post group "{{ post_group }}" with expected "{{ group.key }}"</p>
+
     {% if post_group == group.key %}
       {% assign updated_list = publications_by_group[group.key] | push: post %}
       {% assign publications_by_group = publications_by_group | merge: group.key, updated_list %}
       {% assign matched = true %}
+      <p><strong>✔ Matched:</strong> {{ post.title }} categorized under {{ group.title }}</p>
       {% break %}
     {% endif %}
   {% endfor %}
 
   {% unless matched %}
     {% assign other_publications = other_publications | push: post %}
+    <p><strong>❌ Unmatched:</strong> {{ post.title }} marked as Other</p>
   {% endunless %}
 {% endfor %}
 
