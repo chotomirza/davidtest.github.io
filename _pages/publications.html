@@ -18,6 +18,17 @@ author_profile: true
 
 <h2>Publications</h2>
 
+<!-- Define category mapping -->
+{% assign category_map = 
+  {
+    "LLM": "llm",
+    "Communication": "communication",
+    "Behavioral": "behavior",
+    "Political Science": "political_science",
+    "Marketing": "marketing"
+  }
+%}
+
 <!-- Define categories -->
 {% assign publication_groups = 
   [
@@ -42,7 +53,43 @@ author_profile: true
 <!-- Categorize publications -->
 {% for post in site.publications reversed %}
   {% assign matched = false %}
-  {% assign post_group = post.group | downcase | strip %}
+  {% assign post_group = post.group | strip %}
 
-  <!-- Debugging: Show each post's category -->
-  <p><strong>Debugging:</strong> Post
+  <!-- Convert post_group using the category map -->
+  {% assign mapped_group = category_map[post_group] %}
+
+  <p><strong>Debugging:</strong> Post title: "{{ post.title }}", Raw Group: "{{ post_group }}", Mapped Group: "{{ mapped_group }}"</p>
+
+  {% if mapped_group %}
+    {% assign updated_list = publications_by_group[mapped_group] | push: post %}
+    {% assign publications_by_group = publications_by_group | merge: mapped_group, updated_list %}
+    {% assign matched = true %}
+    <p><strong>✔ Matched:</strong> {{ post.title }} categorized under {{ mapped_group }}</p>
+  {% endif %}
+
+  {% unless matched %}
+    {% assign other_publications = other_publications | push: post %}
+    <p><strong>❌ Unmatched:</strong> {{ post.title }} marked as Other</p>
+  {% endunless %}
+{% endfor %}
+
+<!-- Display categorized publications -->
+{% for group in publication_groups %}
+  {% assign group_publications = publications_by_group[group.key] %}
+  {% if group_publications.size > 0 %}
+    <h2>{{ group.title }}</h2>
+    <hr />
+    {% for post in group_publications %}
+      {% include david-pub.html %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+<!-- Display unmatched publications -->
+{% if other_publications.size > 0 %}
+  <h2>Other</h2>
+  <hr />
+  {% for post in other_publications %}
+    {% include david-pub.html %}
+  {% endfor %}
+{% endif %}
