@@ -29,10 +29,6 @@ author_profile: true
   } 
 %}
 
-{% if post.group %}
-<p><strong>Disciplines1:</strong> {{ post.group }}</p>
-{% endif %}
-
 <!-- Initialize arrays for each group and unmatched publications -->
 {% assign publications_by_group = {} %}
 {% for group_key in publication_groups %}
@@ -43,12 +39,9 @@ author_profile: true
 
 <!-- Categorize publications -->
 {% for post in site.publications reversed %}
-
   {% assign matched = false %}
   {% for group_key in publication_groups %}
     {% assign group_title = publication_groups[group_key] %}
-    <!-- Debugging output -->
-    <p>Checking post.group: {{ post.group | downcase | strip }} against group_title: {{ group_title | downcase | strip }}</p>
     {% if post.group | downcase | strip == group_title | downcase | strip %}
       {% assign publications_by_group = publications_by_group | merge: group_title: (publications_by_group[group_title] | push: post) %}
       {% assign matched = true %}
@@ -59,8 +52,6 @@ author_profile: true
     {% assign other_publications = other_publications | push: post %}
   {% endunless %}
 {% endfor %}
-
-
 
 <!-- Display publications by group -->
 {% for group_key in publication_groups %}
