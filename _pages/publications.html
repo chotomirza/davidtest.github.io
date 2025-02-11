@@ -16,14 +16,24 @@ author_profile: true
 
 {% include base_path %}
 
-<h2>Publications</h2>
 
-<!-- Define categories -->
 {% assign category_titles = ["LLM", "Communication", "Behavioral", "Political Science", "Marketing"] %}
+
+<h2>Categories</h2>
+
+<p>Debug: Before Loop</p>
 
 {% for category in category_titles %}
   <p>{{ category }}</p>
 {% endfor %}
+
+<p>Debug: After Loop</p>
+
+
+
+
+
+<h2>Publications</h2>
 
 <!-- Track which categories have been displayed -->
 {% assign displayed_categories = "" | split: "," %}
