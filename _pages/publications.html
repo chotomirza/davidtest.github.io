@@ -22,6 +22,11 @@ author_profile: true
 <!-- print each item of site.publication_groups in a new line -->
 {% for group_key in site.publication_groups %}
   <h2> group_key {{group_key}} </h2>
+  <h2> group_key.title {{group_key.title}} </h2>
+  <h2> group_key['title'] {{group_key['title']}} </h2>
+
+  <!-- the one below shows up as blank -->
+  <h2> site.publication_groups {{site.publication_groups}} </h2>
   <h2> site.publication_groups[group_key] {{site.publication_groups[group_key]}} </h2>
 {% endfor %}
 
