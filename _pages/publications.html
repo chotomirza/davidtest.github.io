@@ -18,38 +18,43 @@ author_profile: true
 
 <h2>Publications</h2>
 
-<!-- Define categories as an array of arrays -->
+<!-- Define categories as an array of dictionaries -->
 {% assign publication_groups = 
   [
-    ["llm", "LLM"],
-    ["communication", "Communication"],
-    ["behavior", "Behavioral"],
-    ["political_science", "Political Science"],
-    ["marketing", "Marketing"]
+    {"key": "llm", "title": "LLM"},
+    {"key": "communication", "title": "Communication"},
+    {"key": "behavior", "title": "Behavioral"},
+    {"key": "political_science", "title": "Political Science"},
+    {"key": "marketing", "title": "Marketing"}
   ]
 %}
 
-<!-- Initialize arrays for each group and unmatched publications -->
+<!-- Initialize a dictionary to store categorized publications -->
 {% assign publications_by_group = {} %}
+
+<!-- Initialize each category key in the dictionary -->
 {% for group in publication_groups %}
-  {% assign group_key = group[0] %}
-  {% assign group_title = group[1] %}
-  {% assign publications_by_group = publications_by_group | merge: group_title: "" | split: "," %}
+  {% assign empty_list = "" | split: "," %}
+  {% assign publications_by_group = publications_by_group | merge: group.key, empty_list %}
 {% endfor %}
+
+<!-- Initialize other publications list -->
 {% assign other_publications = "" | split: "," %}
 
 <!-- Categorize publications -->
 {% for post in site.publications reversed %}
   {% assign matched = false %}
+  {% assign post_group = post.group | downcase | strip %}
+
   {% for group in publication_groups %}
-    {% assign group_key = group[0] %}
-    {% assign group_title = group[1] %}
-    {% if post.group | downcase | strip == group_key | downcase | strip %}
-      {% assign publications_by_group = publications_by_group | merge: group_title: (publications_by_group[group_title] | push: post) %}
+    {% if post_group == group.key %}
+      {% assign updated_list = publications_by_group[group.key] | push: post %}
+      {% assign publications_by_group = publications_by_group | merge: group.key, updated_list %}
       {% assign matched = true %}
       {% break %}
     {% endif %}
   {% endfor %}
+
   {% unless matched %}
     {% assign other_publications = other_publications | push: post %}
   {% endunless %}
@@ -57,10 +62,9 @@ author_profile: true
 
 <!-- Display publications by group -->
 {% for group in publication_groups %}
-  {% assign group_title = group[1] %}
-  {% assign group_publications = publications_by_group[group_title] %}
+  {% assign group_publications = publications_by_group[group.key] %}
   {% if group_publications.size > 0 %}
-    <h2>{{ group_title }}</h2>
+    <h2>{{ group.title }}</h2>
     <hr />
     {% for post in group_publications %}
       {% include david-pub.html %}
