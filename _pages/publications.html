@@ -38,8 +38,8 @@ author_profile: true
 {% assign other_publications = "" | split: "," %}
 
 <!-- Categorize publications -->
-<!-- Categorize publications -->
 {% for post in site.publications reversed %}
+  <p>Post: {{ post | jsonify }}</p>
   {% assign matched = false %}
   {% for group_key in publication_groups %}
     {% assign group_title = publication_groups[group_key] %}
@@ -55,8 +55,6 @@ author_profile: true
     {% assign other_publications = other_publications | push: post %}
   {% endunless %}
 {% endfor %}
-
-
 
 
 
