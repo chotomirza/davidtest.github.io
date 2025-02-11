@@ -17,18 +17,22 @@ author_profile: true
 {% include base_path %}
 
 
+
+
 {% assign category_titles = ["LLM", "Communication", "Behavioral", "Political Science", "Marketing"] %}
 
 <h2>Categories</h2>
 
 <p>Debug: Before Loop</p>
 
+<!-- Inspect the category_titles array -->
+<p>{{ category_titles | inspect }}</p>
+
 {% for category in category_titles %}
   <p>{{ category }}</p>
 {% endfor %}
 
 <p>Debug: After Loop</p>
-
 
 
 
