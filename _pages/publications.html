@@ -18,7 +18,7 @@ author_profile: true
 
 <h2>Publications</h2>
 
-<!-- Define categories as an array of dictionaries -->
+<!-- Define categories -->
 {% assign publication_groups = 
   [
     {"key": "llm", "title": "LLM"},
@@ -29,10 +29,8 @@ author_profile: true
   ]
 %}
 
-<!-- Initialize a dictionary to store categorized publications -->
+<!-- Initialize dictionary -->
 {% assign publications_by_group = {} %}
-
-<!-- Initialize each category key in the dictionary -->
 {% for group in publication_groups %}
   {% assign empty_list = "" | split: "," %}
   {% assign publications_by_group = publications_by_group | merge: group.key, empty_list %}
@@ -46,45 +44,5 @@ author_profile: true
   {% assign matched = false %}
   {% assign post_group = post.group | downcase | strip %}
 
-  <!-- Debugging: Print out the group of each publication -->
-  <p><strong>Debugging:</strong> Post title: {{ post.title }}, Group: {{ post.group }}</p>
-
-  {% for group in publication_groups %}
-    <!-- Debugging: Print expected category keys -->
-    <p><strong>Comparing:</strong> Post group "{{ post_group }}" with expected "{{ group.key }}"</p>
-
-    {% if post_group == group.key %}
-      {% assign updated_list = publications_by_group[group.key] | push: post %}
-      {% assign publications_by_group = publications_by_group | merge: group.key, updated_list %}
-      {% assign matched = true %}
-      <p><strong>✔ Matched:</strong> {{ post.title }} categorized under {{ group.title }}</p>
-      {% break %}
-    {% endif %}
-  {% endfor %}
-
-  {% unless matched %}
-    {% assign other_publications = other_publications | push: post %}
-    <p><strong>❌ Unmatched:</strong> {{ post.title }} marked as Other</p>
-  {% endunless %}
-{% endfor %}
-
-<!-- Display publications by group -->
-{% for group in publication_groups %}
-  {% assign group_publications = publications_by_group[group.key] %}
-  {% if group_publications.size > 0 %}
-    <h2>{{ group.title }}</h2>
-    <hr />
-    {% for post in group_publications %}
-      {% include david-pub.html %}
-    {% endfor %}
-  {% endif %}
-{% endfor %}
-
-<!-- Display unmatched publications -->
-{% if other_publications.size > 0 %}
-  <h2>Other</h2>
-  <hr />
-  {% for post in other_publications %}
-    {% include david-pub.html %}
-  {% endfor %}
-{% endif %}
+  <!-- Debugging: Show each post's category -->
+  <p><strong>Debugging:</strong> Post
