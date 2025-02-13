@@ -17,7 +17,7 @@ author_profile: true
 {% include base_path %}
 
 <h2>Jump to:</h2>
-<ul>
+<ul class="inline-list">
   {% assign categories = "LLM, Communication, Behavioral, Political Science, Marketing" | split: ", " %}
   {% for category in categories %}
     <li><a href="#{{ category | downcase | replace: ' ', '-' }}">{{ category }}</a></li>
