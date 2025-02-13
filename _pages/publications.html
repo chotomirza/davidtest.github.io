@@ -16,7 +16,14 @@ author_profile: true
 
 {% include base_path %}
 
-<h2>Publications</h2>
+<h2>Jump to:</h2>
+<ul>
+  {% assign categories = "LLM, Communication, Behavioral, Political Science, Marketing" | split: ", " %}
+  {% for category in categories %}
+    <li><a href="#{{ category | downcase | replace: ' ', '-' }}">{{ category }}</a></li>
+  {% endfor %}
+  <li><a href="#other">Other</a></li>
+</ul>
 
 <!-- Define categories in the order we want to display them -->
 {% assign categories = "LLM, Communication, Behavioral, Political Science, Marketing" | split: ", " %}
@@ -31,13 +38,13 @@ author_profile: true
 
     {% if post_group == category %}
       {% if found == false %}
-        <h2>{{ category }}</h2>
+        <h2 id="{{ category | downcase | replace: ' ', '-' }}">{{ category }}</h2>
         <hr />
         {% assign found = true %}
       {% endif %}
 
       {% include david-pub.html %}
-    {% endif %}
+    {% endif %} 
   {% endfor %}
 {% endfor %}
 
@@ -48,7 +55,7 @@ author_profile: true
 
   {% unless categories contains post_group %}
     {% if found_other == false %}
-      <h2>Other</h2>
+      <h2 id="other">Other</h2>
       <hr />
       {% assign found_other = true %}
     {% endif %}
