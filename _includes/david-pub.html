@@ -22,7 +22,7 @@
       {% if authors != "" %}
         <span style="margin-right: 10px;"> - With {{ authors }}. {{ post.year }}.</span>
       {% else %}
-        <span style="margin-right: 10px;"> - {{ post.year }}.</span>
+        <span style="margin-right: 10px;"> - {{ post.year }}. {{post.category}} </span>
       {% endif %}
       
       <!-- Link to Publication Page and Copy Citation to Clipboard -->
