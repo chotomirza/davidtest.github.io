@@ -38,7 +38,7 @@ author_profile: true
 {% for category in categories %}
   {% assign found = false %}
 
-  {% for row in site.data.david_publications2 %}
+  {% for row in site.data.david_publications3 %}
     {% if row.Group == category %}
       {% if found == false %}
         <h2 id="{{ category | downcase | replace: ' ', '-' }}">{{ category }}</h2>
@@ -53,7 +53,7 @@ author_profile: true
 
 <!-- Handle Uncategorized Entries -->
 {% assign found_other = false %}
-{% for row in site.data.david_publications2 %}
+{% for row in site.data.david_publica3 %}
   {% unless categories contains row.Group %}
     {% if found_other == false %}
       <h2 id="other">Other</h2>
