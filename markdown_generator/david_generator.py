@@ -8,9 +8,19 @@ csv_file = "david_publications2.csv"  # Update with actual CSV file name
 # Define output directory
 output_dir = "../_publications"
 
-# Remove the output directory and all its contents, then recreate it
+# Remove all existing files and subdirectories in the output directory
 if os.path.exists(output_dir):
-    shutil.rmtree(output_dir)
+    for filename in os.listdir(output_dir):
+        file_path = os.path.join(output_dir, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print(f"Failed to delete {file_path}. Reason: {e}")
+
+# Ensure the output directory exists
 os.makedirs(output_dir, exist_ok=True)
 
 # Read CSV file and remove invalid characters
