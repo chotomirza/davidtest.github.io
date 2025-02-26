@@ -1,11 +1,16 @@
 import os
 import pandas as pd
+import shutil
 
 # Define input CSV file
 csv_file = "david_publications2.csv"  # Update with actual CSV file name
 
-# Define output directory (Ensure it exists before writing files)
+# Define output directory
 output_dir = "../_publications"
+
+# Remove the output directory and all its contents, then recreate it
+if os.path.exists(output_dir):
+    shutil.rmtree(output_dir)
 os.makedirs(output_dir, exist_ok=True)
 
 # Read CSV file and remove invalid characters
@@ -65,9 +70,6 @@ co-authors:
 ---
 """
 
-    # Ensure output directory exists before writing (Redundant check for safety)
-    os.makedirs(output_dir, exist_ok=True)
-
     # Write markdown file
     with open(md_filepath, "w", encoding="utf-8") as f:
         f.write(markdown_content)
@@ -75,16 +77,3 @@ co-authors:
     print(f"Generated: {md_filepath}")
 
 print("Markdown generation complete.")
-
-
-
-
-
-
-
-# Logic
-# Convert to String: The title is converted to a string. If the title is NaN, it is replaced with "untitled".
-# Remove Invalid Characters: The function iterates through each character in the title and keeps only alphanumeric characters, spaces, underscores, and hyphens.
-# Replace Spaces with Hyphens: Spaces are replaced with hyphens to create a URL-friendly slug.
-# Convert to Lowercase: The resulting string is converted to lowercase.
-# Truncate: The filename is truncated to a maximum length of 80 characters.
