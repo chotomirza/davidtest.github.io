@@ -33,7 +33,7 @@
       {% if co_authors != "" %}
         <span> - With {{ co_authors }}</span>
       {% endif %}
-      <span> - {{ row.Venue }}. {{ row.Year }}. {{ row.Category }} </span>
+      <span> - <em>{{ row.Venue }}</em>. {{ row.Year }}. {{ row.Category }} </span>
       
       {% if row["Published Link"] %}
       <button onclick="window.open('{{ row["Published Link"] }}', '_blank')">Link</button>
