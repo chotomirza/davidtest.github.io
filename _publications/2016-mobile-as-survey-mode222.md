@@ -1,7 +1,7 @@
 ---
-title: "Mobile as Survey Mode"
+title: "Mobile as Survey Mode222"
 collection: publications
-permalink: /publication/mobile-as-survey-mode
+permalink: /publication/mobile-as-survey-mode222
 year: "2016"
 group: "Political Science"
 venue: "Proceedings of the Survey Research Methods Section, ASA"
