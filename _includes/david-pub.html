@@ -13,18 +13,18 @@
       </strong>
       {% if row["Co-Author1"] %}
         <span> - With {{ row["Co-Author1"] }}
-          {% if row["Co-Author2"] %},{{ row["Co-Author2"] }}{% endif %}
-          {% if row["Co-Author3"] %},{{ row["Co-Author3"] }}{% endif %}
-          {% if row["Co-Author4"] %},{{ row["Co-Author4"] }}{% endif %}
-          {% if row["Co-Author5"] %},{{ row["Co-Author5"] }}{% endif %}
-          {% if row["Co-Author6"] %},{{ row["Co-Author6"] }}{% endif %}
+          {% if row["Co-Author2"] %}, {{ row["Co-Author2"] }}{% endif %}
+          {% if row["Co-Author3"] %}, {{ row["Co-Author3"] }}{% endif %}
+          {% if row["Co-Author4"] %}, {{ row["Co-Author4"] }}{% endif %}
+          {% if row["Co-Author5"] %}, {{ row["Co-Author5"] }}{% endif %}
+          {% if row["Co-Author6"] %}, {{ row["Co-Author6"] }}{% endif %}
         </span>
       {% endif %}
       <span> - {{ row.Venue }}. {{ row.Year }}. {{ row.Category }} </span>
       
       {% if row["Published Link"] %}
       <button onclick='window.open("{{ row["Published Link"] }}", "_blank")'>Link</button>
-            {% else %}
+      {% else %}
         <button disabled>Link</button>
       {% endif %}
 
@@ -34,12 +34,6 @@
     </p>
   </article>
 </div>
-
-
-
-
-
-
 
 <!-- if this gets big, create separate CSS file -->
 <style>
@@ -65,11 +59,6 @@
   }
 </style>
 
-
-
-
-
-
 <script>
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
@@ -79,7 +68,3 @@
     });
   }
 </script>
-
-
-
-
