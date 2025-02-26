@@ -13,11 +13,11 @@
       </strong>
       {% if row["Co-Author1"] %}
         <span> - With {{ row["Co-Author1"] }}
-          {% if row["Co-Author2"] %}, {{ row["Co-Author2"] }}{% endif %}
-          {% if row["Co-Author3"] %}, {{ row["Co-Author3"] }}{% endif %}
-          {% if row["Co-Author4"] %}, {{ row["Co-Author4"] }}{% endif %}
-          {% if row["Co-Author5"] %}, {{ row["Co-Author5"] }}{% endif %}
-          {% if row["Co-Author6"] %}, {{ row["Co-Author6"] }}{% endif %}
+          {% if row["Co-Author2"] %},{{ row["Co-Author2"] }}{% endif %}
+          {% if row["Co-Author3"] %},{{ row["Co-Author3"] }}{% endif %}
+          {% if row["Co-Author4"] %},{{ row["Co-Author4"] }}{% endif %}
+          {% if row["Co-Author5"] %},{{ row["Co-Author5"] }}{% endif %}
+          {% if row["Co-Author6"] %},{{ row["Co-Author6"] }}{% endif %}
         </span>
       {% endif %}
       <span> - {{ row.Venue }}. {{ row.Year }}. {{ row.Category }} </span>
