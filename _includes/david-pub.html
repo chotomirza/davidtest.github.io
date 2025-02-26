@@ -11,39 +11,41 @@
           {{ title }}
         {% endif %}
       </strong>
-      {% assign co_authors = "" %}
-      {% if row["Co-Author1"] %}
-        {% assign co_authors = co_authors | append: row["Co-Author1"] %}
-      {% endif %}
-      {% if row["Co-Author2"] %}
-        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author2"] %}
-      {% endif %}
-      {% if row["Co-Author3"] %}
-        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author3"] %}
-      {% endif %}
-      {% if row["Co-Author4"] %}
-        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author4"] %}
-      {% endif %}
-      {% if row["Co-Author5"] %}
-        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author5"] %}
-      {% endif %}
-      {% if row["Co-Author6"] %}
-        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author6"] %}
-      {% endif %}
-      {% if co_authors != "" %}
-        <span> - With {{ co_authors }}</span>
-      {% endif %}
-      <span> - <em>{{ row.Venue }}</em>. {{ row.Year }}. {{ row.Category }} </span>
-      
-      {% if row["Published Link"] %}
-      <button onclick="window.open('{{ row["Published Link"] }}', '_blank')">Link</button>
-      {% else %}
-        <button disabled>Link</button>
-      {% endif %}
+      <span class="additional-info">
+        {% assign co_authors = "" %}
+        {% if row["Co-Author1"] %}
+          {% assign co_authors = co_authors | append: row["Co-Author1"] %}
+        {% endif %}
+        {% if row["Co-Author2"] %}
+          {% assign co_authors = co_authors | append: ", " | append: row["Co-Author2"] %}
+        {% endif %}
+        {% if row["Co-Author3"] %}
+          {% assign co_authors = co_authors | append: ", " | append: row["Co-Author3"] %}
+        {% endif %}
+        {% if row["Co-Author4"] %}
+          {% assign co_authors = co_authors | append: ", " | append: row["Co-Author4"] %}
+        {% endif %}
+        {% if row["Co-Author5"] %}
+          {% assign co_authors = co_authors | append: ", " | append: row["Co-Author5"] %}
+        {% endif %}
+        {% if row["Co-Author6"] %}
+          {% assign co_authors = co_authors | append: ", " | append: row["Co-Author6"] %}
+        {% endif %}
+        {% if co_authors != "" %}
+          <span> - With {{ co_authors }}</span>
+        {% endif %}
+        <span> - <em>{{ row.Venue }}</em>. {{ row.Year }}. {{ row.Category }} </span>
+        
+        {% if row["Published Link"] %}
+        <button onclick="window.open('{{ row["Published Link"] }}', '_blank')">Link</button>
+        {% else %}
+          <button disabled>Link</button>
+        {% endif %}
 
-      {% if row["APA Citation"] %}
-        <button onclick="copyToClipboard('{{ row["APA Citation"] | escape }}')">Cite this</button>
-      {% endif %}
+        {% if row["APA Citation"] %}
+          <button onclick="copyToClipboard('{{ row["APA Citation"] | escape }}')">Cite this</button>
+        {% endif %}
+      </span>
     </p>
   </article>
 </div>
@@ -69,6 +71,10 @@
     border-color: #aaa;
     color: #aaa;
     cursor: not-allowed;
+  }
+
+  .additional-info {
+    font-size: 14px; /* Adjust this value to make the text slightly smaller */
   }
 </style>
 
