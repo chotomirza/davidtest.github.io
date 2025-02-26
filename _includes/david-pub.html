@@ -23,8 +23,8 @@
       <span> - {{ row.Venue }}. {{ row.Year }}. {{ row.Category }} </span>
       
       {% if row["Published Link"] %}
-        <button onclick="window.open('{{ row["Published Link"] }}', '_blank')">Link</button>
-      {% else %}
+      <button onclick='window.open("{{ row["Published Link"] }}", "_blank")'>Link</button>
+            {% else %}
         <button disabled>Link</button>
       {% endif %}
 
