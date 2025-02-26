@@ -7,12 +7,21 @@ author_profile: true
 
 {% if site.author.googlescholar %}
   <div class="wordwrap">
-    You can also find my articles on 
+    You can also find my articles on my
     <a href="https://scholar.google.com/citations?user=aXGTpLgAAAAJ&hl=en">
-      my Google Scholar profile
+      Google Scholar profile
     </a>.
   </div>
 {% endif %}
+
+{% include base_path %}
+
+---
+layout: archive
+title: "Publications"
+permalink: /publications/
+author_profile: true
+---
 
 {% include base_path %}
 
@@ -25,44 +34,37 @@ author_profile: true
   <li><a href="#other">Other</a></li>
 </ul>
 
-<!-- Define categories in the order we want to display them -->
-{% assign categories = "LLM, Communication, Behavioral, Political Science, Marketing" | split: ", " %}
-
-<!-- Loop through each category and display matching publications -->
+<!-- Loop through categories -->
 {% for category in categories %}
   {% assign found = false %}
 
-  <!-- Scan through all publications -->
-  {% for post in site.publications reversed %}
-    {% assign post_group = post.group | strip %}
-
-    {% if post_group == category %}
+  {% for row in site.data.david_publications2 %}
+    {% if row.Group == category %}
       {% if found == false %}
         <h2 id="{{ category | downcase | replace: ' ', '-' }}">{{ category }}</h2>
         <hr />
         {% assign found = true %}
       {% endif %}
 
-      {% include david-pub.html %}
-    {% endif %} 
+      {% include david-pub.html row=row %}
+    {% endif %}
   {% endfor %}
 {% endfor %}
 
-<!-- Handle unmatched publications -->
+<!-- Handle Uncategorized Entries -->
 {% assign found_other = false %}
-{% for post in site.publications reversed %}
-  {% assign post_group = post.group | strip %}
-
-  {% unless categories contains post_group %}
+{% for row in site.data.david_publications2 %}
+  {% unless categories contains row.Group %}
     {% if found_other == false %}
       <h2 id="other">Other</h2>
       <hr />
       {% assign found_other = true %}
     {% endif %}
 
-    {% include david-pub.html %}
+    {% include david-pub.html row=row %}
   {% endunless %}
 {% endfor %}
+
 
 
 <style>

@@ -33,11 +33,22 @@ except Exception as e:
     exit(1)
 
 # Function to clean and format filenames
+# def clean_filename(title, max_length=80):
+#     """Cleans a title to be used as a filename, ensuring it is not too long."""
+#     title = str(title) if pd.notna(title) else "untitled"  # Convert to string and handle NaN
+#     filename = "".join(c for c in title if c.isalnum() or c in (" ", "_", "-")).rstrip().replace(" ", "-").lower()
+#     return filename[:max_length]  # Truncate long filenames
+
+import unicodedata
+
 def clean_filename(title, max_length=80):
-    """Cleans a title to be used as a filename, ensuring it is not too long."""
-    title = str(title) if pd.notna(title) else "untitled"  # Convert to string and handle NaN
-    filename = "".join(c for c in title if c.isalnum() or c in (" ", "_", "-")).rstrip().replace(" ", "-").lower()
-    return filename[:max_length]  # Truncate long filenames
+    """Cleans and normalizes a title for use as a filename."""
+    title = str(title) if pd.notna(title) else "untitled"
+    title = unicodedata.normalize("NFKD", title)  # Normalize accented characters
+    filename = "".join(c for c in title if c.isalnum() or c in (" ", "_", "-")).rstrip()
+    filename = filename.replace(" ", "-").lower()
+    return filename[:max_length]
+
 
 # Function to escape special characters for YAML
 def escape_yaml(text):
