@@ -11,19 +11,32 @@
           {{ title }}
         {% endif %}
       </strong>
+      {% assign co_authors = "" %}
       {% if row["Co-Author1"] %}
-        <span> - With {{ row["Co-Author1"] }}
-          {% if row["Co-Author2"] %}, {{ row["Co-Author2"] }}{% endif %}
-          {% if row["Co-Author3"] %}, {{ row["Co-Author3"] }}{% endif %}
-          {% if row["Co-Author4"] %}, {{ row["Co-Author4"] }}{% endif %}
-          {% if row["Co-Author5"] %}, {{ row["Co-Author5"] }}{% endif %}
-          {% if row["Co-Author6"] %}, {{ row["Co-Author6"] }}{% endif %}
-        </span>
+        {% assign co_authors = co_authors | append: row["Co-Author1"] %}
+      {% endif %}
+      {% if row["Co-Author2"] %}
+        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author2"] %}
+      {% endif %}
+      {% if row["Co-Author3"] %}
+        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author3"] %}
+      {% endif %}
+      {% if row["Co-Author4"] %}
+        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author4"] %}
+      {% endif %}
+      {% if row["Co-Author5"] %}
+        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author5"] %}
+      {% endif %}
+      {% if row["Co-Author6"] %}
+        {% assign co_authors = co_authors | append: ", " | append: row["Co-Author6"] %}
+      {% endif %}
+      {% if co_authors != "" %}
+        <span> - With {{ co_authors }}</span>
       {% endif %}
       <span> - {{ row.Venue }}. {{ row.Year }}. {{ row.Category }} </span>
       
       {% if row["Published Link"] %}
-      <button onclick='window.open("{{ row["Published Link"] }}", "_blank")'>Link</button>
+      <button onclick="window.open('{{ row["Published Link"] }}', '_blank')">Link</button>
       {% else %}
         <button disabled>Link</button>
       {% endif %}
