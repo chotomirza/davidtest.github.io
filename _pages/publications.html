@@ -29,33 +29,38 @@ author_profile: true
 {% for category in categories %}
   {% assign found = false %}
 
-  {% assign sorted_publications = site.data.david_publications3 | where: "Group", category | sort: "Year" | reverse %}
+  {% assign publications = site.data.david_publications3 | where: "Group", category %}
+  {% if publications %}
+    {% assign sorted_publications = publications | sort: "Year" | reverse %}
+    {% for row in sorted_publications %}
+      {% if found == false %}
+        <h2 id="{{ category | downcase | replace: ' ', '-' }}">{{ category }}</h2>
+        <hr />
+        {% assign found = true %}
+      {% endif %}
 
-  {% for row in sorted_publications %}
-    {% if found == false %}
-      <h2 id="{{ category | downcase | replace: ' ', '-' }}">{{ category }}</h2>
-      <hr />
-      {% assign found = true %}
-    {% endif %}
-
-    {% include david-pub.html row=row %}
-  {% endfor %}
+      {% include david-pub.html row=row %}
+    {% endfor %}
+  {% endif %}
 {% endfor %}
 
 <!-- Handle Uncategorized Entries -->
 {% assign found_other = false %}
-{% assign sorted_other_publications = site.data.david_publica3 | sort: "Year" | reverse %}
-{% for row in sorted_other_publications %}
-  {% unless categories contains row.Group %}
-    {% if found_other == false %}
-      <h2 id="other">Other</h2>
-      <hr />
-      {% assign found_other = true %}
-    {% endif %}
+{% assign other_publications = site.data.david_publica3 %}
+{% if other_publications %}
+  {% assign sorted_other_publications = other_publications | sort: "Year" | reverse %}
+  {% for row in sorted_other_publications %}
+    {% unless categories contains row.Group %}
+      {% if found_other == false %}
+        <h2 id="other">Other</h2>
+        <hr />
+        {% assign found_other = true %}
+      {% endif %}
 
-    {% include david-pub.html row=row %}
-  {% endunless %}
-{% endfor %}
+      {% include david-pub.html row=row %}
+    {% endunless %}
+  {% endfor %}
+{% endif %}
 
 <style>
 .inline-list {
